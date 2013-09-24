@@ -1,0 +1,7 @@
+When you plug a StimSync into a USB port, it appears as a standard keyboard. You can use this keyboard just like any other keyboards with NBS presentation. 
+
+If you want to control the StimSync digital outputs, you will need to configure the virtual serial port. To see if you the StimSync is detected, plug and unplug the device while trying watching the Device Manager. If you do not see a new COM port appearing when the device is plugged in, you will need to install the appropriate drivers http://www.pjrc.com/teensy/usb_serial.html. If this still does not work, you may need to install both the Arduino and Teensyduino software described here (http://www.pjrc.com/teensy/td_download.html). Once your StimSync appears in the device manager, you should be fine. At this stage, you can run the KeyMap program from the StimSync web page (http://www.mccauslandcenter.sc.edu/CRNL/tools/stimsync) if you want to change the key mappings or simply test the connection (the KeyMap software will report if it can connect to the StimSync)
+
+Using the serial port in Presentation is described here http://www.neurobs.com/pres_docs/html/03_presentation/06_hardware_interfacing/01_ports/03_port_output/01_output_port_settings.htm
+
+A sample experiment is included. Note that by default it is set up for "COM2" - you will want to make sure that this is set correctly. Also note this example does not attempt to precisely synchronize the timing of the outputs and the screen events.

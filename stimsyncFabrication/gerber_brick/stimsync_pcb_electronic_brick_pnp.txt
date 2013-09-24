@@ -1,0 +1,80 @@
+*Pick And Place List
+*Company=
+*Author=
+*eMail=
+*
+*Project=stimsync_pcb_electronic_brick
+*Date=12:35:42
+*CreatedBy=Fritzing 0.8.0b.06.12.08d5
+*
+*
+*Coordinates in mm, always center of component
+*Origin 0/0=Lower left corner of PCB
+*Rotation in degree (0-360, math. pos.)
+*
+*No;Value;Package;X;Y;Rotation;Side;Name
+1;;;44.8858;-34.9338;0;Bottom;TXT6
+2;;THT;56.2094;-1.98103;0;Bottom;pot10K
+3;;THT;18.1096;-43.8648;-90;Bottom;RF (bottom)
+4;;THT;56.2094;-51.511;0;Bottom;pot10k
+5;;;16.7455;-46.3106;0;Bottom;TXT3
+6;;THT;10.4896;-32.4348;0;Bottom;0v
+7;;;7.80023;-28.413;0;Bottom;TXT1
+8;;;56.2094;-12.141;90;Bottom;ThresholdA
+9;;;25.0402;-11.8437;0;Bottom;TXT2
+10;;;7.94134;-30.8825;0;Bottom;TXT1
+11;;THT;4.15008;-32.4449;0;Bottom;Buttons
+12;;;19.4501;-46.3343;0;Bottom;TXT3
+13;;;21.9666;-46.3106;0;Bottom;TXT3
+14;;;15.3629;-11.9775;0;Bottom;TXT1
+15;;;33.7911;-38.6186;0;Bottom;TXT3
+16;;;30.6958;-38.5252;0;Bottom;TXT3
+17;;;12.8935;-11.9775;0;Bottom;TXT1
+18;;;7.86176;-43.8051;0;Bottom;TXT1
+19;;;56.2094;-41.351;-90;Bottom;ThresholdB
+20;;THT;13.0401;-3.23495;-90;Bottom;r140
+21;;;15.5695;-36.2449;0;Bottom;Via5
+22;;;18.1095;-38.7849;0;Bottom;Via3
+23;;;53.6478;-43.4678;0;Bottom;TXT3
+24;;;7.94134;-36.033;0;Bottom;TXT1
+25;;;43.3789;-50.1945;0;Bottom;TXT3
+26;;;7.8135;-11.907;0;Bottom;TXT1
+27;;;30.437;-14.54;0;Bottom;TXT3
+28;;;17.9735;-11.9775;0;Bottom;TXT1
+29;;;41.0424;-3.02474;0;Bottom;TXT3
+30;;;59.1482;-43.6089;0;Bottom;TXT3
+31;;;8.08246;-38.6436;0;Bottom;TXT1
+32;;;14.2995;-48.9449;0;Bottom;Via9
+33;;;2.88016;-15.9349;0;Bottom;Hole1
+34;;;2.77337;-20.7212;90;Bottom;TXT1
+35;;;7.80023;-25.9436;0;Bottom;TXT1
+36;;5 mm [THT];41.6498;-48.9875;90;Bottom;DetectB
+37;;;43.3885;-5.95901;0;Bottom;TXT3
+38;;;7.87079;-33.5636;0;Bottom;TXT1
+39;;;7.80023;-23.4741;0;Bottom;TXT1
+40;;;20.5135;-11.9775;0;Bottom;TXT1
+41;;;36.7535;-14.4917;0;Bottom;TXT3
+42;;;56.2801;-9.7422;0;Bottom;TXT3
+43;;THT;33.3494;-41.3513;-90;Bottom;SensorB
+44;;THT;5.42008;-45.1449;180;Bottom;0v
+45;;;33.5082;-14.5171;0;Bottom;TXT3
+46;;;36.9708;-38.6889;0;Bottom;TXT3
+47;;THT;14.3101;-8.31495;-90;Bottom;Outputs
+48;;;2.29849;-6.34862;0;Bottom;TXT1
+49;;;59.1561;-9.64765;0;Bottom;TXT3
+50;;;18.4188;-24.9571;0;Bottom;IMG2
+51;;;58.7388;-21.0473;0;Bottom;Hole3
+52;;;53.2164;-9.7422;0;Bottom;TXT3
+53;;;2.88016;-50.2249;0;Bottom;Hole2
+54;;;58.7388;-31.2073;0;Bottom;Hole4
+55;;;10.3535;-11.907;0;Bottom;TXT1
+56;;5 mm [THT];42.8183;-4.52117;-90;Bottom;DetectA
+57;;;5.35788;-11.907;0;Bottom;TXT1
+58;;;56.28;-43.5383;0;Bottom;TXT3
+59;;THT;33.3494;-12.1413;90;Bottom;SensorA
+60;;;14.0926;-46.3402;0;Bottom;TXT3
+61;220;THT;43.4988;-23.5874;90;Bottom;r220
+62;220;THT;35.8894;-31.1913;0;Bottom;r220
+63;;;41.0998;-47.111;0;Bottom;TXT3
+64;;;8.09628;-41.1836;0;Bottom;TXT1
+65;;THT;25.7296;-32.4348;0;Bottom;Teensy3

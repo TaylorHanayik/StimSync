@@ -1,0 +1,861 @@
+// !$*UTF8*$!
+{
+	089C165DFE840E0CC02AAC07 /* English */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {792, 503}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 45}";
+		};
+	};
+	29B97313FDCFA39411CA2CEA /* Project object */ = {
+		activeBuildConfigurationName = Debug;
+		activeExecutable = 30B5F20B0FAA8055003798DC /* ArduinoSerial */;
+		activeTarget = 8D1107260486CEB800E47090 /* ArduinoSerial */;
+		addToTargets = (
+			8D1107260486CEB800E47090 /* ArduinoSerial */,
+		);
+		codeSenseManager = 30B5F2190FAA806A003798DC /* Code sense */;
+		executables = (
+			30B5F20B0FAA8055003798DC /* ArduinoSerial */,
+		);
+		perUserDictionary = {
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					614,
+					20,
+					48,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 265596012;
+			PBXWorkspaceStateSaveDate = 265596012;
+		};
+		perUserProjectItems = {
+			3000CF7A0FAA927F001CDE35 /* PBXTextBookmark */ = 3000CF7A0FAA927F001CDE35 /* PBXTextBookmark */;
+			3000CF7E0FAA927F001CDE35 /* PBXTextBookmark */ = 3000CF7E0FAA927F001CDE35 /* PBXTextBookmark */;
+			3000CF7F0FAA927F001CDE35 /* PBXTextBookmark */ = 3000CF7F0FAA927F001CDE35 /* PBXTextBookmark */;
+			3000CF800FAA927F001CDE35 /* PBXTextBookmark */ = 3000CF800FAA927F001CDE35 /* PBXTextBookmark */;
+			3000CF810FAA927F001CDE35 /* PBXTextBookmark */ = 3000CF810FAA927F001CDE35 /* PBXTextBookmark */;
+			3000CF820FAA927F001CDE35 /* PBXTextBookmark */ = 3000CF820FAA927F001CDE35 /* PBXTextBookmark */;
+			3000CF830FAA927F001CDE35 /* PBXTextBookmark */ = 3000CF830FAA927F001CDE35 /* PBXTextBookmark */;
+			3000CF860FAA927F001CDE35 /* PBXTextBookmark */ = 3000CF860FAA927F001CDE35 /* PBXTextBookmark */;
+			30B37BD70FD4AC84004771E5 /* PBXTextBookmark */ = 30B37BD70FD4AC84004771E5 /* PBXTextBookmark */;
+			30B37BD80FD4AC84004771E5 /* PBXTextBookmark */ = 30B37BD80FD4AC84004771E5 /* PBXTextBookmark */;
+			30B37BD90FD4AC84004771E5 /* PBXTextBookmark */ = 30B37BD90FD4AC84004771E5 /* PBXTextBookmark */;
+			30B37C0A0FD4B3F8004771E5 /* PBXTextBookmark */ = 30B37C0A0FD4B3F8004771E5 /* PBXTextBookmark */;
+			30B37C0B0FD4B3F8004771E5 /* PBXTextBookmark */ = 30B37C0B0FD4B3F8004771E5 /* PBXTextBookmark */;
+			30B37C0C0FD4B3F8004771E5 /* PBXTextBookmark */ = 30B37C0C0FD4B3F8004771E5 /* PBXTextBookmark */;
+			30B37C0D0FD4B3F8004771E5 /* PBXTextBookmark */ = 30B37C0D0FD4B3F8004771E5 /* PBXTextBookmark */;
+			30B37C0E0FD4B3F8004771E5 /* PBXTextBookmark */ = 30B37C0E0FD4B3F8004771E5 /* PBXTextBookmark */;
+			30B37C0F0FD4B3F8004771E5 /* PBXTextBookmark */ = 30B37C0F0FD4B3F8004771E5 /* PBXTextBookmark */;
+			30B37C100FD4B3F8004771E5 /* PBXTextBookmark */ = 30B37C100FD4B3F8004771E5 /* PBXTextBookmark */;
+			30B37C110FD4B3F8004771E5 /* PBXTextBookmark */ = 30B37C110FD4B3F8004771E5 /* PBXTextBookmark */;
+			30B37C120FD4B3F8004771E5 /* PBXTextBookmark */ = 30B37C120FD4B3F8004771E5 /* PBXTextBookmark */;
+			30B37C130FD4B3F8004771E5 /* PBXTextBookmark */ = 30B37C130FD4B3F8004771E5 /* PBXTextBookmark */;
+			30B37C140FD4B3F8004771E5 /* PBXTextBookmark */ = 30B37C140FD4B3F8004771E5 /* PBXTextBookmark */;
+			30B37C150FD4B3F8004771E5 /* PBXTextBookmark */ = 30B37C150FD4B3F8004771E5 /* PBXTextBookmark */;
+			30B37C160FD4B3F8004771E5 /* PBXTextBookmark */ = 30B37C160FD4B3F8004771E5 /* PBXTextBookmark */;
+			30B37C170FD4B3F8004771E5 /* PBXTextBookmark */ = 30B37C170FD4B3F8004771E5 /* PBXTextBookmark */;
+			30B37C180FD4B3F8004771E5 /* PBXTextBookmark */ = 30B37C180FD4B3F8004771E5 /* PBXTextBookmark */;
+			30B37C190FD4B3F8004771E5 /* PBXTextBookmark */ = 30B37C190FD4B3F8004771E5 /* PBXTextBookmark */;
+			30B37C1A0FD4B3F8004771E5 /* PBXTextBookmark */ = 30B37C1A0FD4B3F8004771E5 /* PBXTextBookmark */;
+			30B37C1B0FD4B3F8004771E5 /* PBXTextBookmark */ = 30B37C1B0FD4B3F8004771E5 /* PBXTextBookmark */;
+			30B37C1C0FD4B3F8004771E5 /* PBXTextBookmark */ = 30B37C1C0FD4B3F8004771E5 /* PBXTextBookmark */;
+			30B37C1D0FD4B3F8004771E5 /* PBXTextBookmark */ = 30B37C1D0FD4B3F8004771E5 /* PBXTextBookmark */;
+			30B37C1E0FD4B3F8004771E5 /* PBXTextBookmark */ = 30B37C1E0FD4B3F8004771E5 /* PBXTextBookmark */;
+			30B37C1F0FD4B3F8004771E5 /* PBXTextBookmark */ = 30B37C1F0FD4B3F8004771E5 /* PBXTextBookmark */;
+			30B37C200FD4B3F8004771E5 /* PBXTextBookmark */ = 30B37C200FD4B3F8004771E5 /* PBXTextBookmark */;
+			30B37C210FD4B3F8004771E5 /* PBXTextBookmark */ = 30B37C210FD4B3F8004771E5 /* PBXTextBookmark */;
+			30B37C220FD4B3F8004771E5 /* PBXTextBookmark */ = 30B37C220FD4B3F8004771E5 /* PBXTextBookmark */;
+			30B37C230FD4B3F8004771E5 /* PBXTextBookmark */ = 30B37C230FD4B3F8004771E5 /* PBXTextBookmark */;
+			30B37C240FD4B3F8004771E5 /* PBXTextBookmark */ = 30B37C240FD4B3F8004771E5 /* PBXTextBookmark */;
+			30B37C250FD4B3F8004771E5 /* PBXTextBookmark */ = 30B37C250FD4B3F8004771E5 /* PBXTextBookmark */;
+			30B37C260FD4B3F8004771E5 /* PBXTextBookmark */ = 30B37C260FD4B3F8004771E5 /* PBXTextBookmark */;
+			30B37C270FD4B3F8004771E5 /* PBXTextBookmark */ = 30B37C270FD4B3F8004771E5 /* PBXTextBookmark */;
+			30B37C280FD4B3F8004771E5 /* PBXTextBookmark */ = 30B37C280FD4B3F8004771E5 /* PBXTextBookmark */;
+			30B37C290FD4B3F8004771E5 /* PBXTextBookmark */ = 30B37C290FD4B3F8004771E5 /* PBXTextBookmark */;
+			30B37C2A0FD4B3F8004771E5 /* PBXTextBookmark */ = 30B37C2A0FD4B3F8004771E5 /* PBXTextBookmark */;
+			30B37C2B0FD4B3F8004771E5 /* PBXTextBookmark */ = 30B37C2B0FD4B3F8004771E5 /* PBXTextBookmark */;
+			30B37C2C0FD4B3F8004771E5 /* PBXTextBookmark */ = 30B37C2C0FD4B3F8004771E5 /* PBXTextBookmark */;
+			30B37C2D0FD4B3F8004771E5 /* PBXTextBookmark */ = 30B37C2D0FD4B3F8004771E5 /* PBXTextBookmark */;
+			30B37C2E0FD4B3F8004771E5 /* PBXTextBookmark */ = 30B37C2E0FD4B3F8004771E5 /* PBXTextBookmark */;
+			30B37C2F0FD4B3F8004771E5 /* PBXTextBookmark */ = 30B37C2F0FD4B3F8004771E5 /* PBXTextBookmark */;
+			30B37C300FD4B3F8004771E5 /* PBXTextBookmark */ = 30B37C300FD4B3F8004771E5 /* PBXTextBookmark */;
+			30B37C310FD4B3F8004771E5 /* PBXTextBookmark */ = 30B37C310FD4B3F8004771E5 /* PBXTextBookmark */;
+			30B37C320FD4B3F8004771E5 /* PBXTextBookmark */ = 30B37C320FD4B3F8004771E5 /* PBXTextBookmark */;
+			30B37C330FD4B3F8004771E5 /* PBXTextBookmark */ = 30B37C330FD4B3F8004771E5 /* PBXTextBookmark */;
+			30B37C340FD4B3F8004771E5 /* PBXTextBookmark */ = 30B37C340FD4B3F8004771E5 /* PBXTextBookmark */;
+			30B37C350FD4B3F8004771E5 /* PBXTextBookmark */ = 30B37C350FD4B3F8004771E5 /* PBXTextBookmark */;
+			30B37C360FD4B3F8004771E5 /* PBXTextBookmark */ = 30B37C360FD4B3F8004771E5 /* PBXTextBookmark */;
+			30B37C370FD4B3F8004771E5 /* PBXTextBookmark */ = 30B37C370FD4B3F8004771E5 /* PBXTextBookmark */;
+			30B37C380FD4B3F8004771E5 /* PBXTextBookmark */ = 30B37C380FD4B3F8004771E5 /* PBXTextBookmark */;
+			30B5F24A0FAA8681003798DC /* PBXTextBookmark */ = 30B5F24A0FAA8681003798DC /* PBXTextBookmark */;
+			30B5F24D0FAA8681003798DC /* PBXTextBookmark */ = 30B5F24D0FAA8681003798DC /* PBXTextBookmark */;
+			30B5F24E0FAA8681003798DC /* PBXTextBookmark */ = 30B5F24E0FAA8681003798DC /* PBXTextBookmark */;
+			30B5F24F0FAA8681003798DC /* PBXTextBookmark */ = 30B5F24F0FAA8681003798DC /* PBXTextBookmark */;
+		};
+		sourceControlManager = 30B5F2180FAA806A003798DC /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	29B97316FDCFA39411CA2CEA /* main.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {792, 503}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 269}";
+		};
+	};
+	3000CF7A0FAA927F001CDE35 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F2250FAA8090003798DC /* AMSerialPortAdditions.m */;
+		name = "AMSerialPortAdditions.m: 285";
+		rLen = 34;
+		rLoc = 8690;
+		rType = 0;
+		vrLen = 1501;
+		vrLoc = 8792;
+	};
+	3000CF7E0FAA927F001CDE35 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F2220FAA8090003798DC /* AMSerialPort.h */;
+		name = "AMSerialPort.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1182;
+		vrLoc = 0;
+	};
+	3000CF7F0FAA927F001CDE35 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F2210FAA8090003798DC /* AMSerialErrors.h */;
+		name = "AMSerialErrors.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 529;
+		vrLoc = 0;
+	};
+	3000CF800FAA927F001CDE35 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F2230FAA8090003798DC /* AMSerialPort.m */;
+		name = "AMSerialPort.m: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1152;
+		vrLoc = 0;
+	};
+	3000CF810FAA927F001CDE35 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F2240FAA8090003798DC /* AMSerialPortAdditions.h */;
+		name = "AMSerialPortAdditions.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1303;
+		vrLoc = 0;
+	};
+	3000CF820FAA927F001CDE35 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F22A0FAA8090003798DC /* AMSDKCompatibility.h */;
+		name = "AMSDKCompatibility.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 788;
+		vrLoc = 0;
+	};
+	3000CF830FAA927F001CDE35 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F2280FAA8090003798DC /* AMSerialPortList.h */;
+		name = "AMSerialPortList.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1454;
+		vrLoc = 0;
+	};
+	3000CF860FAA927F001CDE35 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F2250FAA8090003798DC /* AMSerialPortAdditions.m */;
+		name = "AMSerialPortAdditions.m: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1238;
+		vrLoc = 0;
+	};
+	30B37BD70FD4AC84004771E5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F2210FAA8090003798DC /* AMSerialErrors.h */;
+		name = "AMSerialErrors.h: 16";
+		rLen = 0;
+		rLoc = 275;
+		rType = 0;
+		vrLen = 529;
+		vrLoc = 0;
+	};
+	30B37BD80FD4AC84004771E5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F2280FAA8090003798DC /* AMSerialPortList.h */;
+		name = "AMSerialPortList.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1454;
+		vrLoc = 0;
+	};
+	30B37BD90FD4AC84004771E5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F2220FAA8090003798DC /* AMSerialPort.h */;
+		name = "AMSerialPort.h: 53";
+		rLen = 0;
+		rLoc = 1488;
+		rType = 0;
+		vrLen = 962;
+		vrLoc = 548;
+	};
+	30B37C0A0FD4B3F8004771E5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F2280FAA8090003798DC /* AMSerialPortList.h */;
+		name = "AMSerialPortList.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1454;
+		vrLoc = 0;
+	};
+	30B37C0B0FD4B3F8004771E5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F2290FAA8090003798DC /* AMSerialPortList.m */;
+		name = "AMSerialPortList.m: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1038;
+		vrLoc = 0;
+	};
+	30B37C0C0FD4B3F8004771E5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F2230FAA8090003798DC /* AMSerialPort.m */;
+		name = "AMSerialPort.m: 501";
+		rLen = 0;
+		rLoc = 13811;
+		rType = 0;
+		vrLen = 1138;
+		vrLoc = 0;
+	};
+	30B37C0D0FD4B3F8004771E5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F22A0FAA8090003798DC /* AMSDKCompatibility.h */;
+		name = "AMSDKCompatibility.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 788;
+		vrLoc = 0;
+	};
+	30B37C0E0FD4B3F8004771E5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F2220FAA8090003798DC /* AMSerialPort.h */;
+		name = "AMSerialPort.h: 58";
+		rLen = 0;
+		rLoc = 1580;
+		rType = 0;
+		vrLen = 1174;
+		vrLoc = 0;
+	};
+	30B37C0F0FD4B3F8004771E5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F2240FAA8090003798DC /* AMSerialPortAdditions.h */;
+		name = "AMSerialPortAdditions.h: 63";
+		rLen = 130;
+		rLoc = 2564;
+		rType = 0;
+		vrLen = 1303;
+		vrLoc = 0;
+	};
+	30B37C100FD4B3F8004771E5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F2210FAA8090003798DC /* AMSerialErrors.h */;
+		name = "AMSerialErrors.h: 5";
+		rLen = 50;
+		rLoc = 67;
+		rType = 0;
+		vrLen = 529;
+		vrLoc = 0;
+	};
+	30B37C110FD4B3F8004771E5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F23E0FAA824E003798DC /* ViewController.h */;
+		name = "ViewController.h: 34";
+		rLen = 0;
+		rLoc = 853;
+		rType = 0;
+		vrLen = 709;
+		vrLoc = 484;
+	};
+	30B37C120FD4B3F8004771E5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 29B97316FDCFA39411CA2CEA /* main.m */;
+		name = "main.m: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 269;
+		vrLoc = 0;
+	};
+	30B37C130FD4B3F8004771E5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 089C165DFE840E0CC02AAC07 /* English */;
+		name = "InfoPlist.strings: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 45;
+		vrLoc = 0;
+	};
+	30B37C140FD4B3F8004771E5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F23F0FAA824E003798DC /* ViewController.m */;
+		name = "ViewController.m: 149";
+		rLen = 0;
+		rLoc = 4011;
+		rType = 0;
+		vrLen = 1105;
+		vrLoc = 0;
+	};
+	30B37C150FD4B3F8004771E5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F2230FAA8090003798DC /* AMSerialPort.m */;
+		name = "AMSerialPort.m: 501";
+		rLen = 0;
+		rLoc = 13811;
+		rType = 0;
+		vrLen = 957;
+		vrLoc = 13272;
+	};
+	30B37C160FD4B3F8004771E5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F23F0FAA824E003798DC /* ViewController.m */;
+		name = "ViewController.m: 63";
+		rLen = 0;
+		rLoc = 2273;
+		rType = 0;
+		vrLen = 976;
+		vrLoc = 993;
+	};
+	30B37C170FD4B3F8004771E5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F2230FAA8090003798DC /* AMSerialPort.m */;
+		name = "AMSerialPort.m: 501";
+		rLen = 0;
+		rLoc = 13811;
+		rType = 0;
+		vrLen = 1138;
+		vrLoc = 0;
+	};
+	30B37C180FD4B3F8004771E5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F2280FAA8090003798DC /* AMSerialPortList.h */;
+		name = "AMSerialPortList.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1454;
+		vrLoc = 0;
+	};
+	30B37C190FD4B3F8004771E5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F2290FAA8090003798DC /* AMSerialPortList.m */;
+		name = "AMSerialPortList.m: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1038;
+		vrLoc = 0;
+	};
+	30B37C1A0FD4B3F8004771E5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F2210FAA8090003798DC /* AMSerialErrors.h */;
+		name = "AMSerialErrors.h: 16";
+		rLen = 0;
+		rLoc = 275;
+		rType = 0;
+		vrLen = 529;
+		vrLoc = 0;
+	};
+	30B37C1B0FD4B3F8004771E5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F2220FAA8090003798DC /* AMSerialPort.h */;
+		name = "AMSerialPort.h: 58";
+		rLen = 0;
+		rLoc = 1580;
+		rType = 0;
+		vrLen = 627;
+		vrLoc = 1046;
+	};
+	30B37C1C0FD4B3F8004771E5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F23F0FAA824E003798DC /* ViewController.m */;
+		name = "ViewController.m: 65";
+		rLen = 0;
+		rLoc = 2014;
+		rType = 0;
+		vrLen = 954;
+		vrLoc = 1025;
+	};
+	30B37C1D0FD4B3F8004771E5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F2220FAA8090003798DC /* AMSerialPort.h */;
+		name = "AMSerialPort.h: 58";
+		rLen = 0;
+		rLoc = 1580;
+		rType = 0;
+		vrLen = 602;
+		vrLoc = 1071;
+	};
+	30B37C1E0FD4B3F8004771E5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F23F0FAA824E003798DC /* ViewController.m */;
+		name = "ViewController.m: 8";
+		rLen = 0;
+		rLoc = 238;
+		rType = 0;
+		vrLen = 890;
+		vrLoc = 0;
+	};
+	30B37C1F0FD4B3F8004771E5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F2210FAA8090003798DC /* AMSerialErrors.h */;
+		name = "AMSerialErrors.h: 16";
+		rLen = 0;
+		rLoc = 275;
+		rType = 0;
+		vrLen = 529;
+		vrLoc = 0;
+	};
+	30B37C200FD4B3F8004771E5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F2240FAA8090003798DC /* AMSerialPortAdditions.h */;
+		name = "AMSerialPortAdditions.h: 63";
+		rLen = 130;
+		rLoc = 2564;
+		rType = 0;
+		vrLen = 1722;
+		vrLoc = 1626;
+	};
+	30B37C210FD4B3F8004771E5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F2290FAA8090003798DC /* AMSerialPortList.m */;
+		name = "AMSerialPortList.m: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1038;
+		vrLoc = 0;
+	};
+	30B37C220FD4B3F8004771E5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F23F0FAA824E003798DC /* ViewController.m */;
+		name = "ViewController.m: 9";
+		rLen = 0;
+		rLoc = 242;
+		rType = 0;
+		vrLen = 917;
+		vrLoc = 0;
+	};
+	30B37C230FD4B3F8004771E5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F23E0FAA824E003798DC /* ViewController.h */;
+		name = "ViewController.h: 21";
+		rLen = 0;
+		rLoc = 827;
+		rType = 0;
+		vrLen = 735;
+		vrLoc = 154;
+	};
+	30B37C240FD4B3F8004771E5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F2220FAA8090003798DC /* AMSerialPort.h */;
+		name = "AMSerialPort.h: 58";
+		rLen = 0;
+		rLoc = 1580;
+		rType = 0;
+		vrLen = 1174;
+		vrLoc = 0;
+	};
+	30B37C250FD4B3F8004771E5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F2230FAA8090003798DC /* AMSerialPort.m */;
+		name = "AMSerialPort.m: 501";
+		rLen = 0;
+		rLoc = 13811;
+		rType = 0;
+		vrLen = 1138;
+		vrLoc = 0;
+	};
+	30B37C260FD4B3F8004771E5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F2240FAA8090003798DC /* AMSerialPortAdditions.h */;
+		name = "AMSerialPortAdditions.h: 63";
+		rLen = 130;
+		rLoc = 2564;
+		rType = 0;
+		vrLen = 1303;
+		vrLoc = 0;
+	};
+	30B37C270FD4B3F8004771E5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F2210FAA8090003798DC /* AMSerialErrors.h */;
+		name = "AMSerialErrors.h: 16";
+		rLen = 0;
+		rLoc = 275;
+		rType = 0;
+		vrLen = 529;
+		vrLoc = 0;
+	};
+	30B37C280FD4B3F8004771E5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F22A0FAA8090003798DC /* AMSDKCompatibility.h */;
+		name = "AMSDKCompatibility.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 788;
+		vrLoc = 0;
+	};
+	30B37C290FD4B3F8004771E5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F2220FAA8090003798DC /* AMSerialPort.h */;
+		name = "AMSerialPort.h: 58";
+		rLen = 0;
+		rLoc = 1580;
+		rType = 0;
+		vrLen = 1174;
+		vrLoc = 0;
+	};
+	30B37C2A0FD4B3F8004771E5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F2240FAA8090003798DC /* AMSerialPortAdditions.h */;
+		name = "AMSerialPortAdditions.h: 63";
+		rLen = 130;
+		rLoc = 2564;
+		rType = 0;
+		vrLen = 1303;
+		vrLoc = 0;
+	};
+	30B37C2B0FD4B3F8004771E5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F23F0FAA824E003798DC /* ViewController.m */;
+		name = "ViewController.m: 8";
+		rLen = 0;
+		rLoc = 238;
+		rType = 0;
+		vrLen = 917;
+		vrLoc = 0;
+	};
+	30B37C2C0FD4B3F8004771E5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F2210FAA8090003798DC /* AMSerialErrors.h */;
+		name = "AMSerialErrors.h: 16";
+		rLen = 0;
+		rLoc = 275;
+		rType = 0;
+		vrLen = 529;
+		vrLoc = 0;
+	};
+	30B37C2D0FD4B3F8004771E5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F23F0FAA824E003798DC /* ViewController.m */;
+		name = "ViewController.m: 12";
+		rLen = 0;
+		rLoc = 485;
+		rType = 0;
+		vrLen = 1102;
+		vrLoc = 0;
+	};
+	30B37C2E0FD4B3F8004771E5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F23E0FAA824E003798DC /* ViewController.h */;
+		name = "ViewController.h: 21";
+		rLen = 0;
+		rLoc = 827;
+		rType = 0;
+		vrLen = 683;
+		vrLoc = 0;
+	};
+	30B37C2F0FD4B3F8004771E5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F23F0FAA824E003798DC /* ViewController.m */;
+		name = "ViewController.m: 12";
+		rLen = 0;
+		rLoc = 485;
+		rType = 0;
+		vrLen = 1102;
+		vrLoc = 0;
+	};
+	30B37C300FD4B3F8004771E5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F2210FAA8090003798DC /* AMSerialErrors.h */;
+		name = "AMSerialErrors.h: 5";
+		rLen = 50;
+		rLoc = 67;
+		rType = 0;
+		vrLen = 529;
+		vrLoc = 0;
+	};
+	30B37C310FD4B3F8004771E5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F23F0FAA824E003798DC /* ViewController.m */;
+		name = "ViewController.m: 3";
+		rLen = 516;
+		rLoc = 24;
+		rType = 0;
+		vrLen = 1106;
+		vrLoc = 0;
+	};
+	30B37C320FD4B3F8004771E5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F23E0FAA824E003798DC /* ViewController.h */;
+		name = "ViewController.h: 15";
+		rLen = 0;
+		rLoc = 541;
+		rType = 0;
+		vrLen = 938;
+		vrLoc = 0;
+	};
+	30B37C330FD4B3F8004771E5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F23F0FAA824E003798DC /* ViewController.m */;
+		name = "ViewController.m: 18";
+		rLen = 0;
+		rLoc = 569;
+		rType = 0;
+		vrLen = 1106;
+		vrLoc = 0;
+	};
+	30B37C340FD4B3F8004771E5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F23E0FAA824E003798DC /* ViewController.h */;
+		name = "ViewController.h: 34";
+		rLen = 0;
+		rLoc = 853;
+		rType = 0;
+		vrLen = 709;
+		vrLoc = 484;
+	};
+	30B37C350FD4B3F8004771E5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F23F0FAA824E003798DC /* ViewController.m */;
+		name = "ViewController.m: 149";
+		rLen = 0;
+		rLoc = 4011;
+		rType = 0;
+		vrLen = 1105;
+		vrLoc = 0;
+	};
+	30B37C360FD4B3F8004771E5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 29B97316FDCFA39411CA2CEA /* main.m */;
+		name = "main.m: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 269;
+		vrLoc = 0;
+	};
+	30B37C370FD4B3F8004771E5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 089C165DFE840E0CC02AAC07 /* English */;
+		name = "InfoPlist.strings: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 45;
+		vrLoc = 0;
+	};
+	30B37C380FD4B3F8004771E5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F23F0FAA824E003798DC /* ViewController.m */;
+		name = "ViewController.m: 106";
+		rLen = 0;
+		rLoc = 2966;
+		rType = 0;
+		vrLen = 1104;
+		vrLoc = 1349;
+	};
+	30B5F20B0FAA8055003798DC /* ArduinoSerial */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = ArduinoSerial;
+		sourceDirectories = (
+		);
+	};
+	30B5F2180FAA806A003798DC /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+		};
+	};
+	30B5F2190FAA806A003798DC /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	30B5F2210FAA8090003798DC /* AMSerialErrors.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {792, 503}}";
+			sepNavSelRange = "{67, 50}";
+			sepNavVisRange = "{0, 529}";
+		};
+	};
+	30B5F2220FAA8090003798DC /* AMSerialPort.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {792, 3696}}";
+			sepNavSelRange = "{1580, 0}";
+			sepNavVisRange = "{0, 1174}";
+		};
+	};
+	30B5F2230FAA8090003798DC /* AMSerialPort.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {870, 10332}}";
+			sepNavSelRange = "{13811, 0}";
+			sepNavVisRange = "{0, 1138}";
+		};
+	};
+	30B5F2240FAA8090003798DC /* AMSerialPortAdditions.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {852, 1330}}";
+			sepNavSelRange = "{2564, 130}";
+			sepNavVisRange = "{0, 1303}";
+		};
+	};
+	30B5F2250FAA8090003798DC /* AMSerialPortAdditions.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1212, 8582}}";
+			sepNavSelRange = "{8690, 34}";
+			sepNavVisRange = "{8792, 1501}";
+		};
+	};
+	30B5F2280FAA8090003798DC /* AMSerialPortList.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {792, 742}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 1454}";
+		};
+	};
+	30B5F2290FAA8090003798DC /* AMSerialPortList.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {792, 4928}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 1038}";
+		};
+	};
+	30B5F22A0FAA8090003798DC /* AMSDKCompatibility.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {792, 532}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 788}";
+		};
+	};
+	30B5F23E0FAA824E003798DC /* ViewController.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {792, 672}}";
+			sepNavSelRange = "{853, 0}";
+			sepNavVisRange = "{484, 709}";
+		};
+	};
+	30B5F23F0FAA824E003798DC /* ViewController.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {942, 2618}}";
+			sepNavSelRange = "{2966, 0}";
+			sepNavVisRange = "{1349, 1104}";
+			sepNavWindowFrame = "{{15, 299}, {1190, 874}}";
+		};
+	};
+	30B5F24A0FAA8681003798DC /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 32CA4F630368D1EE00C91783 /* ArduinoSerial_Prefix.pch */;
+		name = "ArduinoSerial_Prefix.pch: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 157;
+		vrLoc = 0;
+	};
+	30B5F24D0FAA8681003798DC /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F23E0FAA824E003798DC /* ViewController.h */;
+		name = "ViewController.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 232;
+		vrLoc = 0;
+	};
+	30B5F24E0FAA8681003798DC /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 32CA4F630368D1EE00C91783 /* ArduinoSerial_Prefix.pch */;
+		name = "ArduinoSerial_Prefix.pch: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 157;
+		vrLoc = 0;
+	};
+	30B5F24F0FAA8681003798DC /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 30B5F23F0FAA824E003798DC /* ViewController.m */;
+		name = "ViewController.m: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 224;
+		vrLoc = 0;
+	};
+	32CA4F630368D1EE00C91783 /* ArduinoSerial_Prefix.pch */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {842, 503}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 157}";
+		};
+	};
+	8D1107260486CEB800E47090 /* ArduinoSerial */ = {
+		activeExec = 0;
+		executables = (
+			30B5F20B0FAA8055003798DC /* ArduinoSerial */,
+		);
+	};
+}

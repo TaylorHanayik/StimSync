@@ -1,0 +1,1 @@
+This folder includes Fritzing files as well as Gerber files. These can be used if you want to order your own printed circuit boards (e.g. from Fritzing or oshpark).

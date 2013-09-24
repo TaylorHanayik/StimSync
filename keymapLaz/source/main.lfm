@@ -1,0 +1,389 @@
+object Form1: TForm1
+  Left = 429
+  Height = 600
+  Top = 125
+  Width = 361
+  Caption = 'StimSync'
+  ClientHeight = 600
+  ClientWidth = 361
+  Menu = MainMenu1
+  OnClose = FormClose
+  OnCreate = FormCreate
+  OnShow = FormShow
+  Position = poScreenCenter
+  LCLVersion = '1.0.6.0'
+  object Panel1: TPanel
+    Left = 0
+    Height = 416
+    Top = 0
+    Width = 361
+    Align = alTop
+    ClientHeight = 416
+    ClientWidth = 361
+    TabOrder = 0
+    object MappingBox: TGroupBox
+      Left = 16
+      Height = 376
+      Top = 32
+      Width = 329
+      Caption = 'Mapping'
+      ClientHeight = 354
+      ClientWidth = 321
+      Enabled = False
+      TabOrder = 0
+      object GroupBox1: TGroupBox
+        Left = 84
+        Height = 320
+        Top = 6
+        Width = 96
+        Caption = 'Down Code'
+        ClientHeight = 298
+        ClientWidth = 88
+        TabOrder = 0
+        object Down1: TEdit
+          Left = 4
+          Height = 22
+          Top = 4
+          Width = 80
+          MaxLength = 1
+          TabOrder = 0
+          Text = 'A'
+        end
+        object Down2: TEdit
+          Left = 4
+          Height = 22
+          Top = 30
+          Width = 80
+          MaxLength = 1
+          TabOrder = 1
+          Text = 'A'
+        end
+        object Down3: TEdit
+          Left = 4
+          Height = 22
+          Top = 55
+          Width = 80
+          MaxLength = 1
+          TabOrder = 2
+          Text = 'A'
+        end
+        object Down4: TEdit
+          Left = 4
+          Height = 22
+          Top = 79
+          Width = 80
+          MaxLength = 1
+          TabOrder = 3
+          Text = 'A'
+        end
+        object Down5: TEdit
+          Left = 4
+          Height = 22
+          Top = 103
+          Width = 80
+          MaxLength = 1
+          TabOrder = 4
+          Text = 'A'
+        end
+        object Down6: TEdit
+          Left = 4
+          Height = 22
+          Top = 127
+          Width = 80
+          MaxLength = 1
+          TabOrder = 5
+          Text = 'A'
+        end
+        object Down7: TEdit
+          Left = 4
+          Height = 22
+          Top = 151
+          Width = 80
+          MaxLength = 1
+          TabOrder = 6
+          Text = 'A'
+        end
+        object Down8: TEdit
+          Left = 4
+          Height = 22
+          Top = 175
+          Width = 80
+          MaxLength = 1
+          TabOrder = 7
+          Text = 'A'
+        end
+        object Down9: TEdit
+          Left = 4
+          Height = 22
+          Top = 199
+          Width = 80
+          MaxLength = 1
+          TabOrder = 8
+          Text = 'A'
+        end
+        object Down10: TEdit
+          Left = 4
+          Height = 22
+          Top = 223
+          Width = 80
+          MaxLength = 1
+          TabOrder = 9
+          Text = 'A'
+        end
+        object Down11: TEdit
+          Left = 4
+          Height = 22
+          Top = 247
+          Width = 80
+          MaxLength = 1
+          TabOrder = 10
+          Text = 'A'
+        end
+        object Down12: TEdit
+          Left = 4
+          Height = 22
+          Top = 271
+          Width = 80
+          MaxLength = 1
+          TabOrder = 11
+          Text = 'A'
+        end
+      end
+      object StatusGroup: TCheckGroup
+        Left = 16
+        Height = 320
+        Top = 6
+        Width = 60
+        AutoFill = True
+        Caption = 'Status'
+        ChildSizing.LeftRightSpacing = 6
+        ChildSizing.TopBottomSpacing = 6
+        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+        ChildSizing.EnlargeVertical = crsHomogenousChildResize
+        ChildSizing.ShrinkHorizontal = crsScaleChilds
+        ChildSizing.ShrinkVertical = crsScaleChilds
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 1
+        ClientHeight = 298
+        ClientWidth = 52
+        Enabled = False
+        Items.Strings = (
+          '1'
+          '2'
+          '3'
+          '4'
+          '5'
+          '6'
+          '7'
+          '8'
+          '9'
+          '10'
+          'a1'
+          'a2'
+        )
+        OnClick = StatusGroupClick
+        TabOrder = 1
+        Data = {
+          0C000000020202020202020202020202
+        }
+      end
+      object GroupBox2: TGroupBox
+        Left = 188
+        Height = 320
+        Top = 6
+        Width = 96
+        Caption = 'Up Code'
+        ClientHeight = 298
+        ClientWidth = 88
+        TabOrder = 2
+        object Up1: TEdit
+          Left = 4
+          Height = 22
+          Top = 4
+          Width = 80
+          MaxLength = 1
+          TabOrder = 0
+          Text = 'A'
+        end
+        object Up2: TEdit
+          Left = 4
+          Height = 22
+          Top = 30
+          Width = 80
+          MaxLength = 1
+          TabOrder = 1
+          Text = 'A'
+        end
+        object Up3: TEdit
+          Left = 4
+          Height = 22
+          Top = 55
+          Width = 80
+          MaxLength = 1
+          TabOrder = 2
+          Text = 'A'
+        end
+        object Up4: TEdit
+          Left = 4
+          Height = 22
+          Top = 79
+          Width = 80
+          MaxLength = 1
+          TabOrder = 3
+          Text = 'A'
+        end
+        object Up5: TEdit
+          Left = 4
+          Height = 22
+          Top = 103
+          Width = 80
+          MaxLength = 1
+          TabOrder = 4
+          Text = 'A'
+        end
+        object Up6: TEdit
+          Left = 4
+          Height = 22
+          Top = 127
+          Width = 80
+          MaxLength = 1
+          TabOrder = 5
+          Text = 'A'
+        end
+        object Up7: TEdit
+          Left = 4
+          Height = 22
+          Top = 151
+          Width = 80
+          MaxLength = 1
+          TabOrder = 6
+          Text = 'A'
+        end
+        object Up8: TEdit
+          Left = 4
+          Height = 22
+          Top = 175
+          Width = 80
+          MaxLength = 1
+          TabOrder = 7
+          Text = 'A'
+        end
+        object Up9: TEdit
+          Left = 4
+          Height = 22
+          Top = 199
+          Width = 80
+          MaxLength = 1
+          TabOrder = 8
+          Text = 'A'
+        end
+        object Up10: TEdit
+          Left = 4
+          Height = 22
+          Top = 223
+          Width = 80
+          MaxLength = 1
+          TabOrder = 9
+          Text = 'A'
+        end
+        object Up11: TEdit
+          Left = 4
+          Height = 22
+          Top = 247
+          Width = 80
+          MaxLength = 1
+          TabOrder = 10
+          Text = 'A'
+        end
+        object Up12: TEdit
+          Left = 4
+          Height = 22
+          Top = 271
+          Width = 80
+          MaxLength = 1
+          TabOrder = 11
+          Text = 'A'
+        end
+      end
+      object Label2: TLabel
+        Left = 24
+        Height = 17
+        Top = 334
+        Width = 100
+        Caption = 'Debounce Time'
+        ParentColor = False
+      end
+      object SpinEdit1: TSpinEdit
+        Left = 140
+        Height = 16
+        Top = 334
+        Width = 122
+        MaxValue = 255
+        MinValue = 1
+        TabOrder = 3
+        Value = 128
+      end
+    end
+    object ComPortDrop: TComboBox
+      Left = 128
+      Height = 20
+      Top = 8
+      Width = 217
+      ItemHeight = 0
+      OnChange = ComPortDropChange
+      OnClick = ComPortDropClick
+      ReadOnly = True
+      Style = csOwnerDrawFixed
+      TabOrder = 1
+    end
+    object Label1: TLabel
+      Left = 16
+      Height = 17
+      Top = 11
+      Width = 102
+      Caption = 'Select StimSync:'
+      ParentColor = False
+    end
+  end
+  object TextOutput: TMemo
+    Left = 0
+    Height = 184
+    Top = 416
+    Width = 361
+    Align = alClient
+    Lines.Strings = (
+      'Keys'#9'      uSec'
+    )
+    ScrollBars = ssVertical
+    TabOrder = 1
+    WordWrap = False
+  end
+  object Timer1: TTimer
+    Enabled = False
+    Interval = 50
+    OnTimer = Timer1Timer
+    left = 424
+    top = 48
+  end
+  object MainMenu1: TMainMenu
+    left = 288
+    top = 8
+    object FileMenu: TMenuItem
+      Caption = 'File'
+      object SaveMenu: TMenuItem
+        Caption = 'Save text'
+        OnClick = SaveMenuClick
+      end
+      object SetupVisibleMenu: TMenuItem
+        Caption = 'Hide/Show Setup'
+        OnClick = SetupVisibleMenuClick
+      end
+    end
+  end
+  object SaveDialog1: TSaveDialog
+    DefaultExt = '.tab'
+    Filter = 'tab delimited text|.tab'
+    left = 328
+    top = 8
+  end
+end

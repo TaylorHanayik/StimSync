@@ -1,0 +1,268 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <ProjectSession>
+    <Version Value="9"/>
+    <BuildModes Active="Default"/>
+    <Units Count="14">
+      <Unit0>
+        <Filename Value="elecroRecord.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="elecroRecord"/>
+        <UsageCount Value="219"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="main.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="MainForm"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="main"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="388"/>
+        <CursorPos X="121" Y="408"/>
+        <UsageCount Value="219"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="prefs.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="PrefForm"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="prefs"/>
+        <EditorIndex Value="2"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="103"/>
+        <CursorPos X="17" Y="118"/>
+        <UsageCount Value="215"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="eeg_type.pas"/>
+        <UnitName Value="eeg_type"/>
+        <EditorIndex Value="5"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="26"/>
+        <CursorPos X="25" Y="56"/>
+        <UsageCount Value="109"/>
+        <Loaded Value="True"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="format_all.pas"/>
+        <UnitName Value="format_all"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="85" Y="9"/>
+        <UsageCount Value="88"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="filter_rbj.pas"/>
+        <UnitName Value="filter_rbj"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="22"/>
+        <CursorPos X="16" Y="1"/>
+        <UsageCount Value="88"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="eeg_graph.pas"/>
+        <UnitName Value="eeg_graph"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="8"/>
+        <CursorPos X="138" Y="19"/>
+        <UsageCount Value="88"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="format_vhdr.pas"/>
+        <UnitName Value="format_vhdr"/>
+        <EditorIndex Value="0"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="51"/>
+        <CursorPos X="22" Y="51"/>
+        <UsageCount Value="109"/>
+        <Loaded Value="True"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="synaser.pas"/>
+        <UnitName Value="synaser"/>
+        <EditorIndex Value="4"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="2326"/>
+        <CursorPos X="81" Y="2339"/>
+        <UsageCount Value="80"/>
+        <Loaded Value="True"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="/Developer/lazarus/lcl/include/control.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="636"/>
+        <CursorPos X="13" Y="645"/>
+        <UsageCount Value="56"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="format_tms32.pas"/>
+        <UnitName Value="format_tms32"/>
+        <EditorIndex Value="6"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="53"/>
+        <CursorPos X="42" Y="249"/>
+        <UsageCount Value="73"/>
+        <Loaded Value="True"/>
+      </Unit10>
+      <Unit11>
+        <Filename Value="userdir.pas"/>
+        <UnitName Value="userdir"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="160"/>
+        <CursorPos X="7" Y="164"/>
+        <UsageCount Value="52"/>
+      </Unit11>
+      <Unit12>
+        <Filename Value="format_vmrk.pas"/>
+        <UnitName Value="format_vmrk"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="7"/>
+        <CursorPos X="76" Y="62"/>
+        <UsageCount Value="52"/>
+      </Unit12>
+      <Unit13>
+        <Filename Value="mainprefs.pas"/>
+        <UnitName Value="mainprefs"/>
+        <EditorIndex Value="3"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="88"/>
+        <CursorPos X="25" Y="101"/>
+        <UsageCount Value="75"/>
+        <Loaded Value="True"/>
+      </Unit13>
+    </Units>
+    <General>
+      <ActiveWindowIndexAtStart Value="0"/>
+    </General>
+    <JumpHistory Count="30" HistoryIndex="29">
+      <Position1>
+        <Filename Value="main.pas"/>
+        <Caret Line="332" Column="70" TopLine="304"/>
+      </Position1>
+      <Position2>
+        <Filename Value="main.pas"/>
+        <Caret Line="396" Column="46" TopLine="368"/>
+      </Position2>
+      <Position3>
+        <Filename Value="main.pas"/>
+        <Caret Line="27" Column="140" TopLine="26"/>
+      </Position3>
+      <Position4>
+        <Filename Value="main.pas"/>
+        <Caret Line="37" Column="14" TopLine="26"/>
+      </Position4>
+      <Position5>
+        <Filename Value="main.pas"/>
+        <Caret Line="50" Column="24" TopLine="26"/>
+      </Position5>
+      <Position6>
+        <Filename Value="main.pas"/>
+        <Caret Line="206" Column="63" TopLine="178"/>
+      </Position6>
+      <Position7>
+        <Filename Value="main.pas"/>
+        <Caret Line="360" Column="24" TopLine="332"/>
+      </Position7>
+      <Position8>
+        <Filename Value="main.pas"/>
+        <Caret Line="391" Column="30" TopLine="371"/>
+      </Position8>
+      <Position9>
+        <Filename Value="main.pas"/>
+        <Caret Line="396" Column="19" TopLine="378"/>
+      </Position9>
+      <Position10>
+        <Filename Value="main.pas"/>
+        <Caret Line="402" Column="59" TopLine="378"/>
+      </Position10>
+      <Position11>
+        <Filename Value="main.pas"/>
+        <Caret Line="411" Column="19" TopLine="394"/>
+      </Position11>
+      <Position12>
+        <Filename Value="main.pas"/>
+        <Caret Line="421" Column="73" TopLine="394"/>
+      </Position12>
+      <Position13>
+        <Filename Value="main.pas"/>
+        <Caret Line="462" Column="15" TopLine="434"/>
+      </Position13>
+      <Position14>
+        <Filename Value="main.pas"/>
+        <Caret Line="21" Column="145" TopLine="19"/>
+      </Position14>
+      <Position15>
+        <Filename Value="main.pas"/>
+        <Caret Line="78" Column="26" TopLine="50"/>
+      </Position15>
+      <Position16>
+        <Filename Value="main.pas"/>
+        <Caret Line="309" Column="26" TopLine="282"/>
+      </Position16>
+      <Position17>
+        <Filename Value="main.pas"/>
+        <Caret Line="332" Column="70" TopLine="304"/>
+      </Position17>
+      <Position18>
+        <Filename Value="main.pas"/>
+        <Caret Line="2" Column="144" TopLine="1"/>
+      </Position18>
+      <Position19>
+        <Filename Value="main.pas"/>
+        <Caret Line="78" Column="11" TopLine="50"/>
+      </Position19>
+      <Position20>
+        <Filename Value="main.pas"/>
+        <Caret Line="305" Column="20" TopLine="278"/>
+      </Position20>
+      <Position21>
+        <Filename Value="main.pas"/>
+        <Caret Line="332" Column="41" TopLine="304"/>
+      </Position21>
+      <Position22>
+        <Filename Value="main.pas"/>
+        <Caret Line="396" Column="63" TopLine="368"/>
+      </Position22>
+      <Position23>
+        <Filename Value="main.pas"/>
+        <Caret Line="406" Column="63" TopLine="378"/>
+      </Position23>
+      <Position24>
+        <Filename Value="main.pas"/>
+        <Caret Line="408" Column="117" TopLine="380"/>
+      </Position24>
+      <Position25>
+        <Filename Value="main.pas"/>
+        <Caret Line="401" Column="24" TopLine="384"/>
+      </Position25>
+      <Position26>
+        <Filename Value="main.pas"/>
+        <Caret Line="406" Column="63" TopLine="384"/>
+      </Position26>
+      <Position27>
+        <Filename Value="main.pas"/>
+        <Caret Line="408" Column="117" TopLine="384"/>
+      </Position27>
+      <Position28>
+        <Filename Value="main.pas"/>
+        <Caret Line="412" Column="63" TopLine="384"/>
+      </Position28>
+      <Position29>
+        <Filename Value="main.pas"/>
+        <Caret Line="134" Column="108" TopLine="124"/>
+      </Position29>
+      <Position30>
+        <Filename Value="main.pas"/>
+        <Caret Line="397" Column="66" TopLine="369"/>
+      </Position30>
+    </JumpHistory>
+  </ProjectSession>
+</CONFIG>

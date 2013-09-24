@@ -1,0 +1,125 @@
+object MainForm: TMainForm
+  Left = 456
+  Height = 459
+  Top = 477
+  Width = 720
+  Caption = 'MainForm'
+  ClientHeight = 459
+  ClientWidth = 720
+  Menu = MainMenu1
+  OnClose = FormClose
+  OnCreate = FormCreate
+  OnResize = FormResize
+  Position = poScreenCenter
+  LCLVersion = '1.0.2.0'
+  object StatusBar1: TStatusBar
+    Left = 0
+    Height = 15
+    Top = 444
+    Width = 720
+    Panels = <    
+      item
+        Width = 80
+      end    
+      item
+        Width = 80
+      end    
+      item
+        Width = 50
+      end>
+    SimplePanel = False
+  end
+  object PairSplitter1: TPairSplitter
+    Cursor = crVSplit
+    Left = 0
+    Height = 444
+    Top = 0
+    Width = 720
+    Align = alClient
+    Position = 400
+    SplitterType = pstVertical
+    object PairSplitterSide1: TPairSplitterSide
+      Tag = 2
+      Cursor = crArrow
+      Left = 0
+      Height = 400
+      Top = 0
+      Width = 720
+      ClientWidth = 720
+      ClientHeight = 400
+      OnResize = PairSplitterSide1Resize
+      object CurrentImage: TImage
+        Left = 0
+        Height = 400
+        Top = 0
+        Width = 720
+        Align = alClient
+      end
+    end
+    object PairSplitterSide2: TPairSplitterSide
+      Cursor = crArrow
+      Left = 0
+      Height = 39
+      Top = 405
+      Width = 720
+      ClientWidth = 720
+      ClientHeight = 39
+      object TriggerImage: TImage
+        Left = 0
+        Height = 39
+        Top = 0
+        Width = 720
+        Align = alClient
+      end
+    end
+  end
+  object sampleTimer: TTimer
+    Enabled = False
+    Interval = 30
+    OnTimer = sampleTimerTimer
+    left = 264
+    top = 32
+  end
+  object initTimer: TTimer
+    Enabled = False
+    OnTimer = initTimerTimer
+    left = 200
+    top = 32
+  end
+  object MainMenu1: TMainMenu
+    left = 48
+    top = 128
+    object FileItem: TMenuItem
+      Caption = 'File'
+      object RecordItem: TMenuItem
+        Caption = 'Start recording'
+        ShortCut = 4178
+        ShortCutKey2 = 16466
+        OnClick = StartBtnClick
+      end
+      object SaveMenu: TMenuItem
+        Caption = 'Save data'
+        Enabled = False
+        ShortCut = 4179
+        ShortCutKey2 = 16467
+        OnClick = SaveMenuClick
+      end
+      object QuitMenu: TMenuItem
+        Caption = 'Quit'
+        OnClick = QuitMenuClick
+      end
+    end
+    object HelpMenu: TMenuItem
+      Caption = 'Help'
+      object AboutItem: TMenuItem
+        Caption = 'About...'
+        OnClick = AboutItemClick
+      end
+    end
+  end
+  object SaveDialog1: TSaveDialog
+    Filter = 'BrainVision|*.vhdr'
+    left = 48
+    top = 192
+  end
+end

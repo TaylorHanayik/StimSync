@@ -1,0 +1,1 @@
+This code should run on Matlab 7 and later. It will not run on current (3/2013) copies of GNU Octave (as it requires nested procedures). You must first upload stimsyncArd to your Teensy/Arduino. Then run the matlab script ScopeMath_Arduino.
