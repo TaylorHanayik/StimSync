@@ -12,9 +12,10 @@
   //#define IS_UNO //n.b. the Arduino UNO is a poor choice for this application - no USB keyboard, poor serial speed
 #endif
 
+
 //no need to edit lines below here....111123
 
-#define BAUD_RATE  460800 // 230400 //921600 //460800//115200 is the max for the Uno - Teensy and Leonardo use direct for much higher speeds
+#define BAUD_RATE  115200 // 460800 // 230400 //921600 //460800//115200 is the max for the Uno - Teensy and Leonardo use direct for much higher speeds
 boolean gIsBluetoothConnection = false;
 const int kSoftwareVersion = 1;
 const int kBitsResolution = 16; //currently we always send 16-bits per sample
