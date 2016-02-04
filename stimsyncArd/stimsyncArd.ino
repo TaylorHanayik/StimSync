@@ -207,6 +207,7 @@ int kKeyNumAnalog = 0; //number of analog inputs
     const int kOutNum = 3;
     int kOutPin[kOutNum+1] = {0, 10,11,12};
   #endif
+  #include <Keyboard.h>
 #endif
 
 #ifndef NO_EEPROM 
