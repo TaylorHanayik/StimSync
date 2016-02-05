@@ -8,8 +8,8 @@
 #elif defined(__AVR_ATmega32U4__) && defined(CORE_TEENSY)  //if Teensy 2.0...
   #define IS_TEENSY2
 #else //assume AVR devices like a Leonardo 
-  #define IS_LEONARDO
-  //#define IS_UNO //n.b. the Arduino UNO is a poor choice for this application - no USB keyboard, poor serial speed
+  //#define IS_LEONARDO
+  #define IS_UNO //n.b. the Arduino UNO is a poor choice for this application - no USB keyboard, poor serial speed
 #endif
 
 
@@ -159,7 +159,7 @@ int kKeyNumAnalog = 0; //number of analog inputs
 #endif
 
 #ifdef  IS_UNO
- WARNING: the UNO does not support a USB keyboard and has a VERY slow serial communication (e.g. 1 channel at 100 Hz), you will also want to added pauses when initiating communication (see notes in ScopeMath_Arduino for details). To proceed comment this line
+  // WARNING: the UNO does not support a USB keyboard and has a VERY slow serial communication (e.g. 1 channel at 100 Hz), you will also want to added pauses when initiating communication (see notes in ScopeMath_Arduino for details). To proceed comment this line
   #define BAUD_RATE 115200 //The UNO is not as capabe as other devices
   const int kADCbits = 10; //The Uno supports 10bit (0..1023) analog input
   const int kFirstDigitalInPin = 2; //for example if digital inputs are pins 2..9 then '1', since pins0/1 are UART, this is typically 2
@@ -927,8 +927,10 @@ void loop() {
    } //for each key
      if (gKeyChangeTime != 0) {
        if ( (timeNow >( gKeyChangeTime+gDebounceMillis))  || (timeNow < gKeyChangeTime) )  {
+        #ifndef NO_USB_KEYBOARD
           Keyboard.release(gKeyChangeChar);
           gKeyChangeTime = 0;
+        #endif
        } //debounce time elapsed
      } //key currently pressed
 
