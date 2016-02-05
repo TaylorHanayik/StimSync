@@ -69,6 +69,7 @@ for x in range(0, nReps): #show the trials
     mywin.flip()
     core.wait(0.5)
     digitalWrite(ser, chr(1))
+    digitalWrite(ser, chr(2))
     dark.draw()
     mywin.callOnFlip(digitalWrite, ser, chr(0)) #all off
     mywin.flip()
