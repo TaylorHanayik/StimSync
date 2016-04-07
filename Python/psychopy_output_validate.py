@@ -34,12 +34,12 @@ def open_arduino_port():
     print 'assuming Arduino attached to port %s' %(available[0])
     serPort = serial.Serial(available[0], 115200, timeout=1)
     serPort.flushInput()
-    serPort.write(cmdString(177, 163, 169, 169)) #set to keyboard mode 177,163,169,169
+    serPort.write(cmdString(177, 163, 181, 181)) #set to keyboard mode 177,163,169,169
     serPort.flush()
-    serPort.write(cmdString(169,163,169,169)) #get current mode 169,163,169,169 we expect the reply 169,163,169,169
+    serPort.write(cmdString(169,163,181,181)) #get current mode 169,163,169,169 we expect the reply 169,163,169,169
     serPort.flush() #send command
     obs = serPort.read(4)
-    if obs != cmdString(169,163,169,169) :
+    if obs != cmdString(169,163,181,181) :
         print 'Warning: the selected port does not have a StimSync attached'
     return serPort
 
@@ -68,8 +68,8 @@ for x in range(0, nReps): #show the trials
     mywin.callOnFlip(digitalWrite, ser, chr(127)) #all on
     mywin.flip()
     core.wait(0.5)
-    digitalWrite(ser, chr(1))
-    digitalWrite(ser, chr(2))
+#    digitalWrite(ser, chr(1))
+#    digitalWrite(ser, chr(2))
     dark.draw()
     mywin.callOnFlip(digitalWrite, ser, chr(0)) #all off
     mywin.flip()
@@ -95,7 +95,8 @@ i = 1
 for u in useclist:
     d = u[1]-oldusec
     k = u[0]
-    print "%2d Key: %6d, Diff: %d" % (i,k,d)
+    ks = bin(k)[2:]
+    print "%2d Key: %16s, Diff: %d" % (i,ks,d)
     oldusec = u[1]
     i += 1
 

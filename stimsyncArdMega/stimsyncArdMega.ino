@@ -37,6 +37,7 @@ const byte kCmd2NumAnalogKeys = 135;
 const byte kCmd2OscSuperSampling = 136;
 const byte kCmd2OscBitsResolution = 137;
 const byte kCmd2SoftwareVersion = 138;
+const byte kCmd2EEGTrigger = 139;
 const byte kCmd34ModeKey = 169;
 const byte kCmd34ModeuSec = 181;
 const byte kCmd34ModeOsc = 162;
@@ -168,6 +169,8 @@ int kKeyNumAnalog = 0; //number of analog inputs
   const int kOutLEDpin = 13; //location of in-built light emitting diode - 11 for Teensy, 13 for Arduino
   const int kOutNum = 7;
   int kOutPin[kOutNum+1] = {0, 10,11,12,14,15,16,17};
+  const int kOutEEGTriggerNum = 16;
+  int kOutEEGTriggerPin[kOutEEGTriggerNum+1] = {0, 22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37};
   #define NO_USB_KEYBOARD
   #ifdef ANALOG_KEYS
     const int kOscMaxChannels = 4; // must be 1..15
@@ -715,23 +718,24 @@ void updateDebounceSettings() {
 
 boolean isNewCommand(byte Val) {
 //responds to any commands from PC - either reporting settings or changing settings, updates queue of recent bytes
+// 1 2 3 -> 0 1 2 Val # left shift buffer and append val
  for (int i = 1; i < kCmdLength; i++) //e.g. 1 to 3
    gCmdPrevBytes[i-1] = gCmdPrevBytes[i];
  gCmdPrevBytes[kCmdLength-1] = Val;
- boolean possibleCmd = false;
+ boolean possibleCmd = false; // default
  for (int i = 0; i < kCmdLength; i++) {//e.g. 0 to 3
    if ((gCmdPrevBytes[i] == kCmd1Set) )
-     possibleCmd = true;
+     possibleCmd = true; // buffer contains a command
  }
  for (int i = 0; i < kCmdLength; i++) {//e.g. 0 to 3
    if ((gCmdPrevBytes[i] == kCmd1Get) )
-     possibleCmd = true;
+     possibleCmd = true; // buffer contains a command
  }
  if (!possibleCmd)
    return false; //input is not a new command
  if ((gCmdPrevBytes[0] != kCmd1Set) && (gCmdPrevBytes[0] != kCmd1Get) )
    return possibleCmd; //only part of a Command has been received...wait for the complete message
- boolean cmdOK = true;
+ boolean cmdOK = true; // command is at beginning of buffer
  switch (gCmdPrevBytes[1]) { //decode the command
    case kCmd2Mode: //command: mode
         if (gCmdPrevBytes[0] == kCmd1Get) {
@@ -844,6 +848,19 @@ boolean isNewCommand(byte Val) {
       if ((gCmdPrevBytes[0] == kCmd1Set) && (gCmdPrevBytes[1] == kCmd2EEPROMSAVE) && (gCmdPrevBytes[2] == kCmd2EEPROMSAVE) && (gCmdPrevBytes[3] == kCmd2EEPROMSAVE))
           writeROM();
       break;
+    case kCmd2EEGTrigger: // send EEG Trigger
+        // gCmdPrevBytes[2] gCmdPrevBytes[3]
+        // use void sendTrigger(byte Index, int Val)
+        int i = 0;
+        if ((gCmdPrevBytes[3] > 0) && (gCmdPrevBytes[3] < (kOutEEGTriggerNum + 1)))
+            i = gCmdPrevBytes[3];
+        else
+            break;
+        if (gCmdPrevBytes[2] == 0)  // Trigger LOW
+            digitalWrite(kOutEEGTriggerPin[i],LOW);
+        else
+            digitalWrite(kOutEEGTriggerPin[i],HIGH);
+        break;
     default : cmdOK = false;
  } //switch
  if (cmdOK) { //clear command buffer
