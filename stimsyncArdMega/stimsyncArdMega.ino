@@ -854,6 +854,7 @@ boolean isNewCommand(byte Val) {
     case kCmd2EEGTrigger: // send EEG Trigger
         // gCmdPrevBytes[2] gCmdPrevBytes[3]
         // use void sendTrigger(byte Index, int Val)
+        {
         int i = 0;
         if ((gCmdPrevBytes[3] > 0) && (gCmdPrevBytes[3] < (kOutEEGTriggerNum + 1))) {
             i = gCmdPrevBytes[3];
@@ -872,7 +873,7 @@ boolean isNewCommand(byte Val) {
                 }
 
             }
-
+        }
         break;
     default : cmdOK = false;
  } //switch
