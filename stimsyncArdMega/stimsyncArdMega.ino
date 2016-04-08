@@ -466,7 +466,10 @@ void sendUSec() {
   int keyBits = 0;
   unsigned long uSec = micros();
   for (int i = 1; i <= kKeyNum; i++)
-          if (gKeyNewDownStatus[i] > 0) keyBits = keyBits + (1 << (i-1));
+    if (gKeyNewDownStatus[i] > 0) {
+        keyBits = keyBits + (1 << (i-1));
+        if (i <= 2) digitalWrite(kOutEEGTriggerPin[i],HIGH); // instant setting of EEG Triggers for response key
+    }
   keyBits = keyBits + (gCurrentDigitalOutput << kKeyNum);
   serialBytes[0] = kuSecSignature;//indentify this reponse
   serialBytes[1] = ( keyBits >> 8) & 0xff; //keys 9..16 as bits 8..15
@@ -852,14 +855,24 @@ boolean isNewCommand(byte Val) {
         // gCmdPrevBytes[2] gCmdPrevBytes[3]
         // use void sendTrigger(byte Index, int Val)
         int i = 0;
-        if ((gCmdPrevBytes[3] > 0) && (gCmdPrevBytes[3] < (kOutEEGTriggerNum + 1)))
+        if ((gCmdPrevBytes[3] > 0) && (gCmdPrevBytes[3] < (kOutEEGTriggerNum + 1))) {
             i = gCmdPrevBytes[3];
+            if (gCmdPrevBytes[2] == 0)  // Trigger LOW
+                digitalWrite(kOutEEGTriggerPin[i],LOW);
+            else
+                digitalWrite(kOutEEGTriggerPin[i],HIGH);
+        }
         else
-            break;
-        if (gCmdPrevBytes[2] == 0)  // Trigger LOW
-            digitalWrite(kOutEEGTriggerPin[i],LOW);
-        else
-            digitalWrite(kOutEEGTriggerPin[i],HIGH);
+            if (gCmdPrevBytes[3] == 0) { // for all
+                for (i=1; i < kOutEEGTriggerNum + 1; i++) {
+                    if (gCmdPrevBytes[2] == 0)  // Trigger LOW
+                        digitalWrite(kOutEEGTriggerPin[i],LOW);
+                    else
+                        digitalWrite(kOutEEGTriggerPin[i],HIGH);
+                }
+
+            }
+
         break;
     default : cmdOK = false;
  } //switch
