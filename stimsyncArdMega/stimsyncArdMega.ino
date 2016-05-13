@@ -1,3 +1,11 @@
+/*
+Voicekey Enable  -   PWM2
+                Detect    -   PWM13
+Keyboard   PWM3 bis PWM9
+AUX in  PWM10 - PWM12
+Trigger out  Digital 22-37
+Und 8 Analogeingänge A0 - A7 
+*/
 //#define ANALOG_KEYS
 //#define SIMULATE_DATA //create fake data - osilloscope does not actually read analog ports
 
