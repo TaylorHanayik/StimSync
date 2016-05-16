@@ -16,7 +16,6 @@ Und 8 Analogeingänge A0 - A7
 //no need to edit lines below here....111123
 
 #define BAUD_RATE  115200 // 460800 // 230400 //921600 //460800//115200 is the max for the Uno - Teensy and Leonardo use direct for much higher speeds
-boolean gIsBluetoothConnection = false;
 const int kSoftwareVersion = 1;
 const int kBitsResolution = 16; //currently we always send 16-bits per sample
 const int kCmdLength = 4; //length of commands
@@ -354,11 +353,7 @@ void sendUSec() {
      checkSum = checkSum + serialBytes[i];
   while (checkSum > 0xff) checkSum=(checkSum >> 8)+(checkSum & 0xff);
   serialBytes[numSerialBytes-1] = checkSum;
-  if (gIsBluetoothConnection) {
-    // ...
-  } else {
-    Serial.write(serialBytes, numSerialBytes);
-  }
+  Serial.write(serialBytes, numSerialBytes);
 } //sendUSec()
 
 void timer_setup() {
@@ -415,19 +410,7 @@ void sendGetResponse(byte b2, byte b3, byte b4) { //report key press mapping for
         serialBytes[1] = b2;
         serialBytes[2] = b3;
         serialBytes[3] = b4;
-        if (gIsBluetoothConnection) {
-          #ifdef USE_BLUETOOTH
-          Serial1.write(serialBytes, kCmdLength);
-          //Uart.write(serialBytes, kCmdLength);
-          #endif
-        } else {
-          #ifdef IS_DUEX
-            SerialUSB.write(serialBytes, kCmdLength);
-          #else
-            Serial.write(serialBytes, kCmdLength);
-          #endif
-
-
+        Serial.write(serialBytes, kCmdLength);
         }
 } //sendGetResponse()
 
@@ -659,7 +642,6 @@ void loop() {
   //Write digtal outputs - check for new commands
 
    if (Serial.available()) { //read data from primary serial port
-        gIsBluetoothConnection = false;
         while (Serial.available()) {
             byte val = Serial.read();
             if (!isNewCommand(val)) writePins(val);
