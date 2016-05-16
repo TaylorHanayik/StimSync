@@ -4,21 +4,11 @@ Voicekey Enable  -   PWM2
 Keyboard   PWM3 bis PWM9
 AUX in  PWM10 - PWM12
 Trigger out  Digital 22-37
-Und 8 Analogeingänge A0 - A7 
+Und 8 Analogeingänge A0 - A7
 */
 //#define ANALOG_KEYS
 //#define SIMULATE_DATA //create fake data - osilloscope does not actually read analog ports
 
-#if defined(__SAM3X8E__) //if Arduino Due
-  #define IS_DUE
-#elif defined(__MK20DX128__) //if Teensy 3.0...
-  #define IS_TEENSY3
-#elif defined(__AVR_ATmega32U4__) && defined(CORE_TEENSY)  //if Teensy 2.0...
-  #define IS_TEENSY2
-#else //assume AVR devices like a Leonardo
-  //#define IS_LEONARDO
-  #define IS_UNO //n.b. the Arduino UNO is a poor choice for this application - no USB keyboard, poor serial speed
-#endif
 
 #define IS_MEGA
 #define NO_OSC
@@ -132,42 +122,6 @@ int kKeyNumAnalog = 2; //number of analog inputs
 int kKeyNumAnalog = 0; //number of analog inputs
 #endif
 
-#ifdef  IS_TEENSY3
-  const int kFirstDigitalInPin = 2; //for example if digital inputs are pins 2..9 then '1', since pins0/1 are UART, this is typically 2
-  const int kOutLEDpin = 13; //location of in-built light emitting diode - 11 for Teensy, 13 for Arduino
-  #define ARM_CPU //The T3 uses an ARM based CPU, not an Atmel AT design
-  const int kADCbits = 16; //The T3 supports 16bit (0..65535) analog input
-  #define  IS_TEENSY
-  #define USE_BLUETOOTH //Comment this line out to disable bluetooth support
-  #ifdef ANALOG_KEYS
-    const int kOscMaxChannels = 4; // must be 1..15
-    const int kOutNum = 7; //
-    int kOutPin[kOutNum+1] = {0, 10,11,12,20,21,22,23};//
-  #else
-    const int kOscMaxChannels = 14;//The Teensy3 has 14 Analog inputs A0..A13, must be 1..15
-    const int kOutNum = 3;
-    int kOutPin[kOutNum+1] = {0, 10,11,12};
-  #endif
-#endif
-
-#ifdef  IS_TEENSY2
-  const int kFirstDigitalInPin = 2; //for example if digital inputs are pins 2..9 then '1', since pins0/1 are UART, this is typically 2
-  const int kOutLEDpin = 11; //location of in-built light emitting diode - 11 for Teensy, 13 for Arduino
-  const int kADCbits = 10; //The T2 supports 10bit (0..1023) analog input
-  #define  IS_TEENSY
-  #ifdef PROTO_BOARD
-    const int kOutNum = 1;
-    int kOutPin[kOutNum+1] = {0, 10};
-  #else
-    const int kOutNum = 5;
-    int kOutPin[kOutNum+1] = {0, 10,12,13,14,15};
-  #endif
-  #ifdef ANALOG_KEYS
-    const int kOscMaxChannels = 4; // must be 1..15
-  #else
-    const int kOscMaxChannels = 6; //We will use 6 Analog inputs A0..A5 must be 1..15
-  #endif
-#endif
 
 #ifdef  IS_MEGA
   // WARNING: the UNO does not support a USB keyboard and has a VERY slow serial communication (e.g. 1 channel at 100 Hz), you will also want to added pauses when initiating communication (see notes in ScopeMath_Arduino for details). To proceed comment this line
@@ -185,43 +139,6 @@ int kKeyNumAnalog = 0; //number of analog inputs
   #else
     const int kOscMaxChannels = 6; //LEONARDO has 6 Analog inputs A0..A5, must be 1..15
   #endif
-#endif
-
-#ifdef  IS_LEONARDO
-  const int kFirstDigitalInPin = 2; //for example if digital inputs are pins 2..9 then '1', since pins0/1 are UART, this is typically 2
-  const int kOutLEDpin = 13; //location of in-built light emitting diode - 11 for Teensy, 13 for Arduino
-  const int kOutNum = 3;
-  const int kADCbits = 10; //The Leonardo supports 10bit (0..1023) analog input
-  int kOutPin[kOutNum+1] = {0, 10,11,12};
-  #ifdef ANALOG_KEYS
-    const int kOscMaxChannels = 4; // must be 1..15
-  #else
-    const int kOscMaxChannels = 6; //LEONARDO has 6 Analog inputs A0..A5, must be 1..15
-  #endif
-#endif
-
-#ifdef  IS_DUE //description of Arduino Due features
-  const int kFirstDigitalInPin = 2; //for example if digital inputs are pins 2..9 then '1', since pins0/1 are UART, this is typically 2
-  const int kOutLEDpin = 13; //location of in-built light emitting diode - 11 for Teensy, 13 for Arduino
-  #define ARM_CPU //The T3 uses an ARM based CPU, not an Atmel AT design
-  #define NO_EEPROM
-  #define DUE_INTERRUPTS //at time of writing, the Due does not allow interr
-  const int kADCbits = 16; //The Due supports 12-bit (0..4095) analog input, but if we specify 16-bit the data is bit-shifted for averaging http://arduino.cc/en/Reference/AnalogReadResolution
-  //#define USE_BLUETOOTH //Comment this line out to disable bluetooth support
-  #ifndef USE_BLUETOOTH //at the moment Due users can get EITHER native USB or BT, not both...
-    #define IS_DUEX //If you define IS_DUEX the Native USB port works but the Bluetooth Serial1 will not. Hopefully future versions of Arduino software will fix this
-  #endif
-
-  #ifdef ANALOG_KEYS
-    const int kOscMaxChannels = 4; // must be 1..15
-    const int kOutNum = 7; //
-    int kOutPin[kOutNum+1] = {0, 10,11,12,14,15,16,17};
-  #else
-    const int kOscMaxChannels = 12;//The Due has 12 Analog inputs A0..A11, must be 1..12
-    const int kOutNum = 3;
-    int kOutPin[kOutNum+1] = {0, 10,11,12};
-  #endif
-  #include <Keyboard.h>
 #endif
 
 #ifndef NO_EEPROM
@@ -322,47 +239,7 @@ boolean readKeys() { //reads which keys are down, returns true if keys have chan
   return statusChange;
 } //readKeys()
 
-#ifdef NO_EEPROM //the Due does not have EEPROM - write to FLASH instead!
-//http://forum.arduino.cc/index.php/topic,149445.0.html
-// call nv_load() to load data from flash
-// modify nv_ram[] array (64 32-bit words)
-// then call nv_save() to save back to flash (not too often!)
 
-uint8_t nv_ram[256];
-const uint8_t nv_flash[256] __attribute__((aligned(256)))={0};
-
-//taken from ASF
-__attribute__ ((section(".ramfunc")))
-uint32_t efc_perform_fcr(Efc *p_efc, uint32_t ul_fcr) {
-    volatile uint32_t ul_status;
-    p_efc->EEFC_FCR = ul_fcr;
-    do {
-        ul_status = p_efc->EEFC_FSR;
-    } while ((ul_status & EEFC_FSR_FRDY) != EEFC_FSR_FRDY);
-    return (ul_status & (EEFC_FSR_FLOCKE | EEFC_FSR_FCMDE));
-}
-
-void nv_load(){
-  for(int i=0;i<256;i++)nv_ram[i]=nv_flash[i];
-}
-
-// This is complete guesswork. The docs are all wrong!
-int nv_save(){
-  uint8_t * nv_write = const_cast<uint8_t *> (nv_flash);
-  unsigned long FlashSectorNum = ((unsigned long)nv_flash - 0x80000) / 256;
-  Efc * efc = FlashSectorNum >= 1024 ? EFC1 : EFC0;
-  FlashSectorNum &= 1023;
-  unsigned long flash_cmd = 0;
-  unsigned long flash_status = 0;
-  flash_cmd = (0x5A << 24) | (FlashSectorNum << 8) | 0x03;
-
-  noInterrupts();
-  for(int i=0;i<256;i++)nv_write[i]=nv_ram[i];
-  flash_status = efc_perform_fcr (efc, flash_cmd);
-  interrupts();
-  return flash_status;
-}
-#endif //ifdef NO_EEPROM
 void writeROM() { //save settings to ROM
   #ifdef NO_EEPROM
     for (int i = 0; i <= kMaxKeyNum; i++) {
@@ -415,15 +292,7 @@ void setup()
   Keyboard.begin();
   #endif
   for (int a = 0; a < kOscMaxChannels; a++) pinMode(A0+a, INPUT);
-  //DUE analogReference(DEFAULT);  //  set range: analogReference(DEFAULT); or analogReference(INTERNAL);
-  #ifdef  ARM_CPU //Atmel CPUs do not have the analogReadRes command
-   #ifdef IS_TEENSY3
-     analogReference(DEFAULT); //range 0..3.3v - note this voltage regulator is noisy
-     //analogReference(INTERNAL);  //range 0..1.2v
-     analogReadAveraging(32); //hardware averaging default is 2. values 0..32. Higher values reduce noise and maximum sample rate
-   #endif
-   analogReadResolution(kADCbits); //this call also recalibrates the ADC
-  #endif
+
   readROM();
   //set KEY values - inputs
   unsigned long timeNow = millis();
@@ -458,15 +327,7 @@ void setup()
   for (int i = 1; i < kOutEEGTriggerNum + 1; i++)
     pinMode(kOutEEGTriggerPin[i], OUTPUT);
   digitalWrite(kOutLEDpin, HIGH);
-  #ifdef IS_DUEX
-    SerialUSB.begin(BAUD_RATE);
-  #else
-    Serial.begin(BAUD_RATE);
-  #endif
-  #ifdef USE_BLUETOOTH
-    Serial1.begin(BAUD_RATE);
-  #endif
-
+  Serial.begin(BAUD_RATE);
 } //setup()
 
 void sendUSec() {
@@ -494,153 +355,11 @@ void sendUSec() {
   while (checkSum > 0xff) checkSum=(checkSum >> 8)+(checkSum & 0xff);
   serialBytes[numSerialBytes-1] = checkSum;
   if (gIsBluetoothConnection) {
-    #ifdef USE_BLUETOOTH
-    Serial1.write(serialBytes, numSerialBytes);
-    //Uart.write(serialBytes, numSerialBytes);
-    #endif
+    // ...
   } else {
-    #ifdef IS_DUEX
-      SerialUSB.write(serialBytes, numSerialBytes);
-    #else
-      Serial.write(serialBytes, numSerialBytes);
-    #endif
+    Serial.write(serialBytes, numSerialBytes);
   }
 } //sendUSec()
-
-#ifdef SIMULATE_DATA
-   int gSamp = 0;
-#endif
-
-#ifndef NO_OSC
-void sendOsc(void) {
-  if ((gOscChannels < 1) || (gOscChannels > kOscMaxChannels)) return;
-  //supersampling
-  gOscSuperSamplingCount++;
-  if (gOscSuperSamplingCount == 1) { //first subsample
-    for (int i = 0; i < gOscChannels; i++)
-      gOscSuperSamples[i] = 0;
-  }
-  for (int i = 0; i < gOscChannels; i++) {
-    unsigned long val = analogRead(i); //ATMEL CPUs are 16 bit by default, so we will get errors bit shifting unless we specify 32-bit value
-    gOscSuperSamples[i] = gOscSuperSamples[i] + (val << kADCbitShift);
-  }
-  if (gOscSuperSamplingCount < gOscSuperSampling)
-     return; //we need to acquire more subsamples
-  gOscSuperSamplingCount = 0; //reset subsamples
-  //end supersampling
-  int analogInput[gOscChannels];
-  #ifdef SIMULATE_DATA //generate fake data - saw-tooth signal
-    gSamp = gSamp + 1;
-    if (gSamp > 62000) gSamp = 0;
-     for (int i = 0; i < gOscChannels; i++)
-       analogInput[i] = gSamp+(i * 100); //offset each channel a tiny bit
-  #else
-    for (int i = 0; i < gOscChannels; i++)
-      analogInput[i] = gOscSuperSamples[i] >> gOscSuperSamplingExponent;
-  #endif //only if simulatedata
-  int numSerialBytes = 4+ (2 * gOscChannels); //16-bits per channel + 4 bytes header and checksum
-  unsigned char serialBytes[numSerialBytes];
-  byte digitalInput = 0;
-  for (int i = 0; i < kKeyNumDigital; i++)
-    digitalInput = digitalInput + ((!digitalRead(i+kFirstDigitalInPin)) << i);
-  gOscSample = gOscSample +1;
-  if (gOscSample == 8) gOscSample = 0; //we sample the milliseconds every 8th sample
-  if (gOscSample == 0) gOscTimeMsec  = millis();
-  //  serialBytes[0] = (1 << 6) +(gOscSample << 4) + gOscChannels; //set flag for 16-bit data
-  serialBytes[0] = (gOscSample << 4) + ((gOscTimeMsec >> (4*(7- gOscSample)))  & 0x0f);//TIMING, from bits 31..24 gOscSample=0 to bits 7..0 when gOscSample = 3
-  serialBytes[1] = gCurrentDigitalOutput; //report status of up to 8 digital outputs
-  serialBytes[2] = digitalInput; //report status of up to 8 digital inputs
-  for (int i = 0; i < gOscChannels; i++) {
-    serialBytes[3+(i*2)] = (analogInput[i] >> 8) & 0xff;
-    serialBytes[4+(i*2)] = analogInput[i]  & 0xff;
-  }
-  int checkSum = 0;
-  for (int i = 0; i <= (numSerialBytes-2); i++)
-     checkSum = checkSum + serialBytes[i];
-  while (checkSum > 0xff) checkSum=(checkSum >> 8)+(checkSum & 0xff);
-  serialBytes[numSerialBytes-1] = checkSum;
-  if (gIsBluetoothConnection) {
-    #ifdef USE_BLUETOOTH
-    Serial1.write(serialBytes, numSerialBytes);
-    //Uart.write(serialBytes, numSerialBytes);
-    #endif
-  } else {
-     #ifdef IS_DUEX
-      SerialUSB.write(serialBytes, numSerialBytes);
-    #else
-      Serial.write(serialBytes, numSerialBytes);
-    #endif
-  }
-} // sendOsc
-#endif // NO_OSC
-
-#ifdef  ARM_CPU
- #ifdef DUE_INTERRUPTS
-   //Due interrupts appear to work differently than Teensy 3: http://arduino.cc/forum/index.php?topic=130423.0
- void TC3_Handler() {
-        TC_GetStatus(TC1, 0);
-        sendOsc();
-  } //TC3_Handler()
-
-    #define tc TC1
-    #define irq TC3_IRQn
-   void startTimer( uint32_t channel,  uint32_t frequency) {
-        pmc_set_writeprotect(false);
-        pmc_enable_periph_clk((uint32_t)irq);
-        TC_Configure(tc, channel, TC_CMR_WAVE | TC_CMR_WAVSEL_UP_RC | TC_CMR_TCCLKS_TIMER_CLOCK4);
-        uint32_t rc = VARIANT_MCK/128/frequency; //128 because we selected TIMER_CLOCK4 above
-         //WARNING: I think (frequency-1) may be correct
-        TC_SetRA(tc, channel, rc/2); //50% high, 50% low
-        TC_SetRC(tc, channel, rc);
-        TC_Start(tc, channel);
-        tc->TC_CHANNEL[channel].TC_IER=TC_IER_CPCS;
-        tc->TC_CHANNEL[channel].TC_IDR=~TC_IER_CPCS;
-        NVIC_EnableIRQ(irq);
-  } //startTimer() Due
-
-   void timer_setup() { //setup Due interrupts
-     if (gOscHz < 1) return; //do not use timer
-     gOscSuperSampling = pow(2,gOscSuperSamplingExponent); //2^N for N= 0,1,2,3 yields 1,2,4,8
-     gOscSuperSamplingCount = 0; //new sample
-     //startPITFreq(0,gOscHz*gOscSuperSampling);
-     startTimer( 0,  gOscHz*gOscSuperSampling);//TC1 channel 0, the IRQ for that channel and the desired frequency
-   } //timer_setup() Due
-    void timer_stop() {
-      NVIC_DisableIRQ(TC3_IRQn);
-    } //timer_stop() Due
-
- #else //not DUE_INTERRUPTS - assume Teensy 3.0
- //uses Teensy 3.0 timer https://github.com/loglow/IntervalTimer
- //requires Teensyduino 1.15 or later http://www.pjrc.com/teensy/td_download.html
- IntervalTimer timer0;
-
-  void timerCallback0() {
-    sendOsc();
-  }
-
-  void timer_setup() { //setup ARM interrupts
-     if (gOscHz < 1) return; //do not use timer
-     gOscSuperSampling = pow(2,gOscSuperSamplingExponent); //2^N for N= 0,1,2,3 yields 1,2,4,8
-     gOscSuperSamplingCount = 0; //new sample
-     //startPITFreq(0,gOscHz*gOscSuperSampling);
-     //timer0.begin(timerCallback0, 5000000); //millionth of second, so  5 seconds
-     timer0.begin(timerCallback0, 1000000/(gOscHz*gOscSuperSampling));
-
-  } //timer_setup() Teensy3
-
-  void timer_stop() {
-     timer0.end();
-    } //timer_stop() Teensy3
-  #endif //if due else Teensy3
-
-#else //not ARM_CPU : assume this device uses an Atmel AVR CPU
-
-#ifndef NO_OSC
-ISR(TIMER1_COMPA_vect)//timer0 interrupt
-{
-  sendOsc();
-}
-#endif // NO_OSC
 
 void timer_setup() {
   if (gOscHz < 1) return; //do not use timer
@@ -689,7 +408,6 @@ void timer_stop() {
   sei(); // turn interrupts back on, aka interrupts();
 }//timer_stop
 
-#endif
 
 void sendGetResponse(byte b2, byte b3, byte b4) { //report key press mapping for pin bitIndex
   byte serialBytes[kCmdLength];
@@ -812,46 +530,7 @@ boolean isNewCommand(byte Val) {
        }
        //read only! defined by hardware
        break;
-    #ifndef NO_OSC
-   case kCmd2OscHz: //oscilloscope sampling rate
-        if (gCmdPrevBytes[0] == kCmd1Get) {
-          sendGetResponse(kCmd2OscHz,(gOscHz >> 8) & 0xff,gOscHz & 0xff);
-          break;
-        }
-        gOscHz =  (gCmdPrevBytes[2] << 8) + gCmdPrevBytes[3];
-        if (gMode == kModeOsc) {  //if timer is running, reset timer with new speed
-          timer_stop(); //halt previous timer
-          timer_setup(); //turn on timer
-        }
-        break;
-   case kCmd2OscChannels: //osciloscope channels
-        if (gCmdPrevBytes[0] == kCmd1Get) {
-          sendGetResponse(kCmd2OscChannels,(gOscChannels << 8) & 0xff,gOscChannels & 0xff);
-          break;
-        }
-        gOscChannels =  (gCmdPrevBytes[2] >> 8) + gCmdPrevBytes[3];
-        if (gOscChannels > kOscMaxChannels) gOscChannels = kOscMaxChannels;
-        if (gOscChannels < 1) gOscChannels = 1;
-        break;
-   case kCmd2OscSuperSampling: //oscilloscope subsampling
-        if (gCmdPrevBytes[0] == kCmd1Get) {
-          sendGetResponse(kCmd2OscSuperSampling,(gOscSuperSamplingExponent >> 8) & 0xff,gOscSuperSamplingExponent & 0xff);
-          break;
-        }
-        gOscSuperSamplingExponent =  (gCmdPrevBytes[2] << 8) + gCmdPrevBytes[3];
-        if (gOscSuperSamplingExponent < 0) gOscSuperSamplingExponent = 0;
-        if (gOscSuperSamplingExponent > kOscMaxSuperSamplingExponent) gOscSuperSamplingExponent = kOscMaxSuperSamplingExponent;
-        if (gMode == kModeOsc) {  //if timer is running, reset timer with new speed
-          timer_stop(); //halt previous timer
-          timer_setup(); //turn on timer
-        }
-        break;
-    case kCmd2OscBitsResolution: //report version of software
-        if (gCmdPrevBytes[0] == kCmd1Get) {
-          sendGetResponse(kCmd2SoftwareVersion,(kBitsResolution >> 8) & 0xff,kBitsResolution & 0xff);
-          break;
-        }
-    #endif // NO_OSC
+
    case kCmd2SoftwareVersion: //report version of software
         if (gCmdPrevBytes[0] == kCmd1Get) {
           sendGetResponse(kCmd2SoftwareVersion,(kSoftwareVersion >> 8) & 0xff,kSoftwareVersion & 0xff);
@@ -944,15 +623,6 @@ void loop() {
      if (gKeyNewDownStatus[i] != gKeyOldDownStatus[i]) {
        if (gKeyNewDownStatus[i] > 0)  { //downPress
          if ( (timeNow >  (gKeyTimeLastDown[i]+ gDebounceMillis))  || (timeNow < gKeyTimeLastDown[i]) )  {
-           #ifndef NO_USB_KEYBOARD
-             if ((gMode == kModeKeyboard) && (gKeyDown[i] > 0)) {
-               gKeyChangeChar = gKeyDown[i];
-               Keyboard.press(gKeyChangeChar);
-               gKeyChangeTime = timeNow;
-               if (gKeyChangeTime == 0) gKeyChangeTime = 1;
-             }
-             //if ((gMode == kModeKeyboard) && (gKeyDown[i] > 0)) Keyboard.print(gKeyDown[i]);
-           #endif
            newStatus = true;
            if  (gKeyDown[i] > 0) newStatusMapped = true;  //status change of mapped key
            gKeyTimeLastDown[i] = timeNow ;
@@ -962,16 +632,6 @@ void loop() {
        }//down press
        if (gKeyNewDownStatus[i] == 0)  { //upPress
         if ( (timeNow >( gKeyTimeLastUp[i]+gDebounceMillis))  || (timeNow < gKeyTimeLastUp[i]) )  { //
-           #ifndef NO_USB_KEYBOARD
-
-             if ((gMode == kModeKeyboard) && (gKeyUp[i] > 0)) {
-               gKeyChangeChar = gKeyUp[i];
-               Keyboard.press(gKeyChangeChar);
-               gKeyChangeTime = timeNow;
-               if (gKeyChangeTime == 0) gKeyChangeTime = 1;
-             }
-             //if ((gMode == kModeKeyboard) && (gKeyUp[i] > 0)) Keyboard.print(gKeyUp[i]);
-          #endif
           newStatus = true;
           if  (gKeyUp[i] > 0) newStatusMapped = true; //status change of mapped key
           gKeyTimeLastUp[i] = timeNow; //
@@ -983,10 +643,7 @@ void loop() {
    } //for each key
      if (gKeyChangeTime != 0) {
        if ( (timeNow >( gKeyChangeTime+gDebounceMillis))  || (timeNow < gKeyChangeTime) )  {
-        #ifndef NO_USB_KEYBOARD
-          Keyboard.release(gKeyChangeChar);
-          gKeyChangeTime = 0;
-        #endif
+            //...
        } //debounce time elapsed
      } //key currently pressed
 
@@ -1000,15 +657,7 @@ void loop() {
   } //ModeUSec
  }
   //Write digtal outputs - check for new commands
-  #ifdef IS_DUEX
-    if (SerialUSB.available()) { //read data from primary serial port
-      gIsBluetoothConnection = false;
-        while (SerialUSB.available()) {
-          byte val = SerialUSB.read();
-          if (!isNewCommand(val)) writePins(val);
-        }
-     }
-  #else
+
    if (Serial.available()) { //read data from primary serial port
         gIsBluetoothConnection = false;
         while (Serial.available()) {
@@ -1016,25 +665,5 @@ void loop() {
             if (!isNewCommand(val)) writePins(val);
         }
     }
-  #endif
 
-   #ifdef USE_BLUETOOTH
-   //if (Uart.available()) { //read data from bluetooth
-   if (Serial1.available()) { //read data from bluetooth
-       gIsBluetoothConnection = true;
-        while (Serial1.available()) {
-          byte val = Serial1.read();
-          if (!isNewCommand(val)) writePins(val);
-        }
-   }
-   #endif
-   #ifndef NO_OSC
-   //flash status light in Oscilloscope mode
-   if (gMode == kModeOsc) {
-    int modulo = timeNow % 1000;
-    if (modulo == 1)  digitalWrite(kOutLEDpin, HIGH);
-    if (modulo == 500) digitalWrite(kOutLEDpin, LOW);
-    if (gOscHz == 0) sendOsc(); //0 Hz means as fast as possible without interrupts
-   }
-   #endif // NO_OSC
 } //loop()
