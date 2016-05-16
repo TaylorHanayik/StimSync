@@ -27,18 +27,21 @@ const byte kCmd2Mode = 163;
 const byte kCmd2KeyDown = 129;
 const byte kCmd2KeyUp = 130;
 const byte kCmd2KeyTrigger = 131;
+#ifndef NO_OSC
 const byte kCmd2OscHz = 132;
 const byte kCmd2OscChannels = 133;
 const byte kCmd2EEPROMSAVE = 134;
 const byte kCmd2NumAnalogKeys = 135;
 const byte kCmd2OscSuperSampling = 136;
 const byte kCmd2OscBitsResolution = 137;
+#endif // NO_OSC
 const byte kCmd2SoftwareVersion = 138;
 const byte kCmd2EEGTrigger = 139;
 const byte kCmd34ModeKey = 169;
 const byte kCmd34ModeuSec = 181;
+#ifndef NO_OSC
 const byte kCmd34ModeOsc = 162;
-
+#endif // NO_OSC
 
 /*COMMANDS FROM COMPUTER TO ARDUINO AND RESPONSES FROM ARDIUNO TO THE COMPUTER
 All commands are 4 bytes long, the first byte is either SET (177) or GET (169)
@@ -132,11 +135,7 @@ int kKeyNumAnalog = 0; //number of analog inputs
   int kOutPin[kOutNum+1] = {0, 10,11,12,14,15,16,17};
   const int kOutEEGTriggerNum = 16;
   int kOutEEGTriggerPin[kOutEEGTriggerNum+1] = {0, 22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37};
-  #ifdef ANALOG_KEYS
-    const int kOscMaxChannels = 4; // must be 1..15
-  #else
-    const int kOscMaxChannels = 6; //LEONARDO has 6 Analog inputs A0..A5, must be 1..15
-  #endif
+  const int kOscMaxChannels = 6; //LEONARDO has 6 Analog inputs A0..A5, must be 1..15
 #endif
 
 #ifndef NO_EEPROM
@@ -174,7 +173,7 @@ unsigned long gKeyTimeLastTrigger[kMaxKeyNum+1] = {};
 unsigned long gKeyTimeLastUp[kMaxKeyNum+1] = {};
 unsigned long gKeyTimeLastDown[kMaxKeyNum+1] = {};
 
-//#ifndef NO_OSC
+#ifndef NO_OSC
 //VALUES FOR OSCILLOSCOPE MODE
 int gOscChannels = 1; //number of channels to report
 int gOscHz = 50; //sample rate in Hz
@@ -185,7 +184,7 @@ int gOscSuperSamplingCount = 0; //current subsample number, will count from 1..g
 const int kOscMaxSuperSamplingExponent = 15; //maximum gOscSuperSampling value, 16 bit int samples added as 32 bit long, so we could saturate with 2^16 samples
 int gOscSample = 3; //increment sample numbers
 unsigned long gOscTimeMsec;
-//#endif // NO_OSC
+#endif // NO_OSC
 
 //values stored in EEPROM
 //Address : Value
@@ -227,16 +226,44 @@ boolean readKeys() { //reads which keys are down, returns true if keys have chan
     }
     //if (gKeyNewDownStatus[index] != gKeyOldDownStatus[index]) {
       statusChange = true;
-      #ifdef PROTO_BOARD
-      digitalWrite(kOutLEDpin+a+1, gKeyNewDownStatus[index]);  //turn analog status light on
-      #else
       digitalWrite(A0+kKeyNumAnalog+kKeyNumAnalog+a, gKeyNewDownStatus[index]);  //turn analog status light on
-      #endif
     //}
   } //for each analog channel
   return statusChange;
 } //readKeys()
 
+void updateDebounceSettings() {
+  //set time based on otherwise unused gKeyDown[0]
+  if (gKeyDown[0]  < 1) gKeyDown[0] = kDefaultDebounceMillis;
+  if (gKeyDown[0]  > 254) gKeyDown[0] = kDefaultDebounceMillis;
+  gDebounceMillis = gKeyDown[0];
+  //set flags based on otherwise unused gKeyUp[0]
+  if (gKeyUp[0]  & 1)
+    gInvertTriggers = true;
+  else
+    gInvertTriggers = false;
+  if (gKeyUp[0]  & 2)
+    gCoupleDownUpDebounce = true;
+  else
+    gCoupleDownUpDebounce = false;
+}
+
+void sendTrigger(byte Index, int Val) {
+  if ((Index < 1) || (Index > kOutNum)) return;
+  if (gInvertTriggers) {
+    if (Val == 0)
+      Val = HIGH;
+    else
+      Val = LOW;
+  } else {
+    if (Val == 0)
+      Val = LOW;
+    else
+      Val = HIGH;
+  }
+  digitalWrite(kOutPin[Index],Val);
+  //digitalWrite(kOutPin[Index],Val);
+} //sendTrigger()
 
 void writeROM() { //save settings to ROM
   #ifdef NO_EEPROM
@@ -286,7 +313,9 @@ void readROM() {
 
 void setup()
 {
+  #ifndef NO_OSC
   for (int a = 0; a < kOscMaxChannels; a++) pinMode(A0+a, INPUT);
+  #endif
 
   readROM();
   //set KEY values - inputs
@@ -311,11 +340,7 @@ void setup()
     pinMode(kOutPin[i], OUTPUT); //lights that signal if an LED is on
   if (kKeyNumAnalog > 0) {
     for (int a = 0; a < kKeyNumAnalog; a++) {
-      #ifdef PROTO_BOARD
-      pinMode(kOutLEDpin+a+1, OUTPUT);  //turn analog status light on
-      #else
       pinMode(A0+kKeyNumAnalog+kKeyNumAnalog+a,OUTPUT);  //turn analog status light on
-      #endif
     }
   }
   pinMode(kOutLEDpin, OUTPUT); //set light as an output
@@ -353,6 +378,7 @@ void sendUSec() {
 } //sendUSec()
 
 void timer_setup() {
+  #ifndef NO_OSC
   if (gOscHz < 1) return; //do not use timer
   gOscSuperSampling = pow(2,gOscSuperSamplingExponent); //2^N for N= 0,1,2,3 yields 1,2,4,8
    gOscSuperSamplingCount = 0; //new sample
@@ -391,6 +417,7 @@ void timer_setup() {
    OCR1A = ((F_CPU/ prescaler) / (lOscHz)) - 1;   //a 16-bit unsigned integer -1 as resets to 0 not 1
    TIMSK1 = 1<<OCIE1A;
   sei(); // turn interrupts back on
+  #endif // NO_OSC
 }
 
 void timer_stop() {
@@ -407,24 +434,7 @@ void sendGetResponse(byte b2, byte b3, byte b4) { //report key press mapping for
         serialBytes[2] = b3;
         serialBytes[3] = b4;
         Serial.write(serialBytes, kCmdLength);
-        }
 } //sendGetResponse()
-
-void updateDebounceSettings() {
-  //set time based on otherwise unused gKeyDown[0]
-  if (gKeyDown[0]  < 1) gKeyDown[0] = kDefaultDebounceMillis;
-  if (gKeyDown[0]  > 254) gKeyDown[0] = kDefaultDebounceMillis;
-  gDebounceMillis = gKeyDown[0];
-  //set flags based on otherwise unused gKeyUp[0]
-  if (gKeyUp[0]  & 1)
-    gInvertTriggers = true;
-  else
-    gInvertTriggers = false;
-  if (gKeyUp[0]  & 2)
-    gCoupleDownUpDebounce = true;
-  else
-    gCoupleDownUpDebounce = false;
-}
 
 boolean isNewCommand(byte Val) {
 //responds to any commands from PC - either reporting settings or changing settings, updates queue of recent bytes
@@ -452,9 +462,6 @@ boolean isNewCommand(byte Val) {
          //sendMode;
          byte mode34 = kCmd34ModeuSec;
          if (gMode == kModeKeyboard) mode34 = kCmd34ModeKey;
-         #ifndef NO_OSC
-         if (gMode == kModeOsc) mode34 = kCmd34ModeOsc;
-         #endif // NO_OSC
          sendGetResponse(kCmd2Mode,mode34,mode34);
          break;
         }
@@ -462,12 +469,6 @@ boolean isNewCommand(byte Val) {
         if ((gCmdPrevBytes[2] == kCmd34ModeKey) && (gCmdPrevBytes[3] == kCmd34ModeKey))  {
           gMode = kModeKeyboard; //switch to microsecond mode
         }
-        #ifndef NO_OSC
-        else if ((gCmdPrevBytes[2] == kCmd34ModeOsc) && (gCmdPrevBytes[3] == kCmd34ModeOsc)) {
-          gMode = kModeOsc;  //switch to Oscilloscope mode
-          timer_setup(); //turn on timer
-        }
-        #endif // NO_OSC
         else { //default  ((gCmdPrevBytes[2] == kCmd34ModeKey) && (gCmdPrevBytes[3] == kCmd34ModeKey)) {
           gMode = kModeuSec; //switch to keyboard mode
           digitalWrite(kOutLEDpin,HIGH); //ensure power light is on
@@ -501,6 +502,7 @@ boolean isNewCommand(byte Val) {
         }
         gKeyTrigger[gCmdPrevBytes[2]] = gCmdPrevBytes[3];
         break;
+   #ifndef NO_OSC
    case kCmd2NumAnalogKeys: //number of analog keys supported
         if (gCmdPrevBytes[0] == kCmd1Get) {
           sendGetResponse(kCmd2NumAnalogKeys,(kKeyNumAnalog >> 8) & 0xff,kKeyNumAnalog & 0xff);
@@ -509,16 +511,19 @@ boolean isNewCommand(byte Val) {
        }
        //read only! defined by hardware
        break;
+    #endif // NO_OSC
 
    case kCmd2SoftwareVersion: //report version of software
         if (gCmdPrevBytes[0] == kCmd1Get) {
           sendGetResponse(kCmd2SoftwareVersion,(kSoftwareVersion >> 8) & 0xff,kSoftwareVersion & 0xff);
           break;
         }
+    #ifndef NO_OSC
     case kCmd2EEPROMSAVE: //save EEPROM
       if ((gCmdPrevBytes[0] == kCmd1Set) && (gCmdPrevBytes[1] == kCmd2EEPROMSAVE) && (gCmdPrevBytes[2] == kCmd2EEPROMSAVE) && (gCmdPrevBytes[3] == kCmd2EEPROMSAVE))
           writeROM();
       break;
+    #endif // NO_OSC
     case kCmd2EEGTrigger: // send EEG Trigger
         // gCmdPrevBytes[2] gCmdPrevBytes[3]
         // use void sendTrigger(byte Index, int Val)
@@ -565,22 +570,6 @@ void writePins(byte Val) {
    if (gMode == kModeuSec) sendUSec();
 } //writePins
 
-void sendTrigger(byte Index, int Val) {
-  if ((Index < 1) || (Index > kOutNum)) return;
-  if (gInvertTriggers) {
-    if (Val == 0)
-      Val = HIGH;
-    else
-      Val = LOW;
-  } else {
-    if (Val == 0)
-      Val = LOW;
-    else
-      Val = HIGH;
-  }
-  digitalWrite(kOutPin[Index],Val);
-  //digitalWrite(kOutPin[Index],Val);
-} //sendTrigger()
 
 void loop() {
  unsigned long timeNow = millis();
