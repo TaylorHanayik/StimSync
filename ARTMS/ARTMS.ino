@@ -132,7 +132,6 @@ int kKeyNumAnalog = 0; //number of analog inputs
   int kOutPin[kOutNum+1] = {0, 10,11,12,14,15,16,17};
   const int kOutEEGTriggerNum = 16;
   int kOutEEGTriggerPin[kOutEEGTriggerNum+1] = {0, 22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37};
-  #define NO_USB_KEYBOARD
   #ifdef ANALOG_KEYS
     const int kOscMaxChannels = 4; // must be 1..15
   #else
@@ -287,9 +286,6 @@ void readROM() {
 
 void setup()
 {
-  #ifndef NO_USB_KEYBOARD
-  Keyboard.begin();
-  #endif
   for (int a = 0; a < kOscMaxChannels; a++) pinMode(A0+a, INPUT);
 
   readROM();
