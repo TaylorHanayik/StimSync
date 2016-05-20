@@ -27,21 +27,10 @@ const byte kCmd2Mode = 163;
 const byte kCmd2KeyDown = 129;
 const byte kCmd2KeyUp = 130;
 const byte kCmd2KeyTrigger = 131;
-#ifndef NO_OSC
-const byte kCmd2OscHz = 132;
-const byte kCmd2OscChannels = 133;
-const byte kCmd2EEPROMSAVE = 134;
-const byte kCmd2NumAnalogKeys = 135;
-const byte kCmd2OscSuperSampling = 136;
-const byte kCmd2OscBitsResolution = 137;
-#endif // NO_OSC
 const byte kCmd2SoftwareVersion = 138;
 const byte kCmd2EEGTrigger = 139;
 const byte kCmd34ModeKey = 169;
 const byte kCmd34ModeuSec = 181;
-#ifndef NO_OSC
-const byte kCmd34ModeOsc = 162;
-#endif // NO_OSC
 
 /*COMMANDS FROM COMPUTER TO ARDUINO AND RESPONSES FROM ARDIUNO TO THE COMPUTER
 All commands are 4 bytes long, the first byte is either SET (177) or GET (169)
@@ -142,7 +131,6 @@ int kKeyNumAnalog = 0; //number of analog inputs
  #include <EEPROM.h> //used to store key mappings
 #endif
 
-//#include <usb_keyboard.h> //used to store key mappings - not present on Due
 
 const int kADCbitShift = 16-kADCbits; //we report data with 16 bits precision, so we need to up-scale 10 and 12 bit ADC
 
@@ -172,19 +160,6 @@ unsigned long gKeyChangeTime = 0;
 unsigned long gKeyTimeLastTrigger[kMaxKeyNum+1] = {};
 unsigned long gKeyTimeLastUp[kMaxKeyNum+1] = {};
 unsigned long gKeyTimeLastDown[kMaxKeyNum+1] = {};
-
-#ifndef NO_OSC
-//VALUES FOR OSCILLOSCOPE MODE
-int gOscChannels = 1; //number of channels to report
-int gOscHz = 50; //sample rate in Hz
-unsigned long gOscSuperSamples[kOscMaxChannels];
-int gOscSuperSamplingExponent = 0; //we will acquire 2^N subsmaples, e.g. gOscHz=100, gOscSuperSampling=2 means 400 samples acquired per second
-int gOscSuperSampling = 1;//number of samples averaged, 2^gOscSuperSampling
-int gOscSuperSamplingCount = 0; //current subsample number, will count from 1..gOscSuperSampling
-const int kOscMaxSuperSamplingExponent = 15; //maximum gOscSuperSampling value, 16 bit int samples added as 32 bit long, so we could saturate with 2^16 samples
-int gOscSample = 3; //increment sample numbers
-unsigned long gOscTimeMsec;
-#endif // NO_OSC
 
 //values stored in EEPROM
 //Address : Value
@@ -311,44 +286,6 @@ void readROM() {
   #endif //only if device has EEPROM
 } //readROM()
 
-void setup()
-{
-  #ifndef NO_OSC
-  for (int a = 0; a < kOscMaxChannels; a++) pinMode(A0+a, INPUT);
-  #endif
-
-  readROM();
-  //set KEY values - inputs
-  unsigned long timeNow = millis();
-  for (int i = 0; i <= kMaxKeyNum; i++) {
-    gKeyTimeLastUp[i] = timeNow;
-    gKeyTimeLastDown[i] = timeNow;
-    gKeyTimeLastTrigger[i] = timeNow;
-  }
-  for (int i = kFirstDigitalInPin; i < (kFirstDigitalInPin+kKeyNumDigital); i++) {
-    pinMode(i, INPUT);           // set pin to input
-    digitalWrite(i, HIGH);       // turn on pullup resistors
-  }
-  readKeys(); //scan inputs
-  for (int i = 1; i <= kMaxKeyNum; i++) {
-    gKeyOldDownStatus[i] = gKeyNewDownStatus[i];
-    gKeyOldTriggerStatus[i] = gKeyNewDownStatus[i];
-    sendTrigger(gKeyTrigger[i],gKeyNewDownStatus[i]);
-  }
-  //Set OUT values - digital outputs
-  for (int i = 1; i <= (kOutNum); i++)  //set analog status lights as outputs1
-    pinMode(kOutPin[i], OUTPUT); //lights that signal if an LED is on
-  if (kKeyNumAnalog > 0) {
-    for (int a = 0; a < kKeyNumAnalog; a++) {
-      pinMode(A0+kKeyNumAnalog+kKeyNumAnalog+a,OUTPUT);  //turn analog status light on
-    }
-  }
-  pinMode(kOutLEDpin, OUTPUT); //set light as an output
-  for (int i = 1; i < kOutEEGTriggerNum + 1; i++)
-    pinMode(kOutEEGTriggerPin[i], OUTPUT);
-  digitalWrite(kOutLEDpin, HIGH);
-  Serial.begin(BAUD_RATE);
-} //setup()
 
 void sendUSec() {
   const int numSerialBytes = 8;
@@ -376,49 +313,6 @@ void sendUSec() {
   serialBytes[numSerialBytes-1] = checkSum;
   Serial.write(serialBytes, numSerialBytes);
 } //sendUSec()
-
-void timer_setup() {
-  #ifndef NO_OSC
-  if (gOscHz < 1) return; //do not use timer
-  gOscSuperSampling = pow(2,gOscSuperSamplingExponent); //2^N for N= 0,1,2,3 yields 1,2,4,8
-   gOscSuperSamplingCount = 0; //new sample
-   cli();                                     // disable interrupts while messing with their settings
-   // Mode 4, CTC using OCR1A
-   // TCCR1A = 1<<WGM12;  // WGM12 is not located in the TCCR1A register
-   TCCR1A = 0;
-   unsigned long lOscHz = gOscHz*gOscSuperSampling;
-  // CS12 CS11 CS10 prescaler these 3 bits set clock scaling, e.g. 0,1,0= 8, so 8Mhz CPU will increment timer at 1MHz
-  //    0    0    1  /1
-  //    0    1    0  /8
-  //    0    1    1  /64 *  2000 Hz
-  //    1    0    0  /256   500 Hz
-  //    1    0    1  /1024  125 Hz
-  int prescaler = 1;
-  if (lOscHz < 250) prescaler = 8;
-  if (lOscHz < 50) prescaler = 64;
-  if (lOscHz < 5) prescaler = 256;
-  switch (prescaler) {
-    case 1:
-      TCCR1B = (1 << WGM12) | (1<<CS10);
-      break;
-    case 8:
-       TCCR1B = (1 << WGM12) | (1<<CS11);
-       break;
-    case 64:
-      TCCR1B = (1 << WGM12) | (1<<CS10) | (1<<CS10);
-      break;
-    case 256:
-       TCCR1B = (1 << WGM12) | (1<<CS12);
-       break;
-    default:
-      TCCR1B = (1 << WGM12) | (1<<CS12)  | (1<<CS10); // /1024
-  }
-  // Set OCR1A for running at desired Hz
-   OCR1A = ((F_CPU/ prescaler) / (lOscHz)) - 1;   //a 16-bit unsigned integer -1 as resets to 0 not 1
-   TIMSK1 = 1<<OCIE1A;
-  sei(); // turn interrupts back on
-  #endif // NO_OSC
-}
 
 void timer_stop() {
   cli();  // disable interrupts while messing with their settings, aka noInterrupts();
@@ -502,28 +396,12 @@ boolean isNewCommand(byte Val) {
         }
         gKeyTrigger[gCmdPrevBytes[2]] = gCmdPrevBytes[3];
         break;
-   #ifndef NO_OSC
-   case kCmd2NumAnalogKeys: //number of analog keys supported
-        if (gCmdPrevBytes[0] == kCmd1Get) {
-          sendGetResponse(kCmd2NumAnalogKeys,(kKeyNumAnalog >> 8) & 0xff,kKeyNumAnalog & 0xff);
-
-          break;
-       }
-       //read only! defined by hardware
-       break;
-    #endif // NO_OSC
 
    case kCmd2SoftwareVersion: //report version of software
         if (gCmdPrevBytes[0] == kCmd1Get) {
           sendGetResponse(kCmd2SoftwareVersion,(kSoftwareVersion >> 8) & 0xff,kSoftwareVersion & 0xff);
           break;
         }
-    #ifndef NO_OSC
-    case kCmd2EEPROMSAVE: //save EEPROM
-      if ((gCmdPrevBytes[0] == kCmd1Set) && (gCmdPrevBytes[1] == kCmd2EEPROMSAVE) && (gCmdPrevBytes[2] == kCmd2EEPROMSAVE) && (gCmdPrevBytes[3] == kCmd2EEPROMSAVE))
-          writeROM();
-      break;
-    #endif // NO_OSC
     case kCmd2EEGTrigger: // send EEG Trigger
         // gCmdPrevBytes[2] gCmdPrevBytes[3]
         // use void sendTrigger(byte Index, int Val)
@@ -570,6 +448,40 @@ void writePins(byte Val) {
    if (gMode == kModeuSec) sendUSec();
 } //writePins
 
+void setup()
+{
+  readROM();
+  //set KEY values - inputs
+  unsigned long timeNow = millis();
+  for (int i = 0; i <= kMaxKeyNum; i++) {
+    gKeyTimeLastUp[i] = timeNow;
+    gKeyTimeLastDown[i] = timeNow;
+    gKeyTimeLastTrigger[i] = timeNow;
+  }
+  for (int i = kFirstDigitalInPin; i < (kFirstDigitalInPin+kKeyNumDigital); i++) {
+    pinMode(i, INPUT);           // set pin to input
+    digitalWrite(i, HIGH);       // turn on pullup resistors
+  }
+  readKeys(); //scan inputs
+  for (int i = 1; i <= kMaxKeyNum; i++) {
+    gKeyOldDownStatus[i] = gKeyNewDownStatus[i];
+    gKeyOldTriggerStatus[i] = gKeyNewDownStatus[i];
+    sendTrigger(gKeyTrigger[i],gKeyNewDownStatus[i]);
+  }
+  //Set OUT values - digital outputs
+  for (int i = 1; i <= (kOutNum); i++)  //set analog status lights as outputs1
+    pinMode(kOutPin[i], OUTPUT); //lights that signal if an LED is on
+  if (kKeyNumAnalog > 0) {
+    for (int a = 0; a < kKeyNumAnalog; a++) {
+      pinMode(A0+kKeyNumAnalog+kKeyNumAnalog+a,OUTPUT);  //turn analog status light on
+    }
+  }
+  pinMode(kOutLEDpin, OUTPUT); //set light as an output
+  for (int i = 1; i < kOutEEGTriggerNum + 1; i++)
+    pinMode(kOutEEGTriggerPin[i], OUTPUT);
+  digitalWrite(kOutLEDpin, HIGH);
+  Serial.begin(BAUD_RATE);
+} //setup()
 
 void loop() {
  unsigned long timeNow = millis();
