@@ -6,16 +6,12 @@ AUX in  PWM10 - PWM12
 Trigger out  Digital 22-37
 Und 8 Analogeingänge A0 - A7
 */
-//#define ANALOG_KEYS
-//#define SIMULATE_DATA //create fake data - osilloscope does not actually read analog ports
-
 
 #define IS_MEGA
-#define NO_OSC
 
 //no need to edit lines below here....111123
 
-#define BAUD_RATE  115200 // 460800 // 230400 //921600 //460800//115200 is the max for the Uno - Teensy and Leonardo use direct for much higher speeds
+#define BAUD_RATE  115200
 const int kSoftwareVersion = 1;
 const int kBitsResolution = 16; //currently we always send 16-bits per sample
 const int kCmdLength = 4; //length of commands
@@ -24,12 +20,9 @@ byte gCmdPrevBytes[kCmdLength] = {0, 0,0,0};
 const byte  kCmd1Set = 177;
 const byte kCmd1Get = 169;
 const byte kCmd2Mode = 163;
-const byte kCmd2KeyDown = 129;
-const byte kCmd2KeyUp = 130;
-const byte kCmd2KeyTrigger = 131;
+const byte kCmd2SetTimeStamp = 137;
 const byte kCmd2SoftwareVersion = 138;
 const byte kCmd2EEGTrigger = 139;
-const byte kCmd34ModeKey = 169;
 const byte kCmd34ModeuSec = 181;
 
 /*COMMANDS FROM COMPUTER TO ARDUINO AND RESPONSES FROM ARDIUNO TO THE COMPUTER
@@ -88,71 +81,40 @@ SIGNALS IN MIRCROSECOND (USEC) MODE
 For example, if only the first (binary 1) and tenth (binary 512) buttons are pressed, the keybits is 513, with 2 stored in the HIGH byte and 1 stored in the LOW BYTE
 Likewsie, the time in microsenconds is sent as a 32-bit value.
 
-SIGNALS IN OSCILLOSCOPE MODE
- When the Arduino is in Osc mode, it will send the computer a packet of data each sample. The sample rate is set by OSCHZ and the number of channels by OSCCHANNELS (1..15).
- The length of the packet is X+2*OSCCHANNELS
- These 8 bytes are:
-  0: SIGNATURE - bits as specified
-      7 (MSB): ALWAYS 0 (so packet can not be confused with a COMMAND)
-      4-6: SAMPLE NUMBER: allows software to detect dropped samples and decode timing. Increments 0,1,2..7,0,1,2..7,0....
-      3-0 (LSB): OSCCHANNELS (1..31)Timing in milliseconds. This nybble encodes time in milliseconds at Sample 0.
-                Time is acquired at SAMPLE NUMBER is 0, with 32-bit value transmitted in 4 bit chunks
-                For sample 0, the nybble is bit-shifted 28 bits, sample 1 is shifted 24 bits...
-  1: DIGITAL INPUT HIGH BYTE echoes status of 7 digital outputs
-  2: DIGITAL INPTUT LOW BYTE status of 8 digital inputs
-  FOR EACH CHANNEL K=1..OSCCHANNELS
-    1+(K*2): ANALOG INPUT HIGH byte for Channel K
-    2+(K*2): ANALOG INPUT LOW byte for Channel K
-  3+(OSCCHANNELS*2): CHECKSUM - sum of all previous bytes folded to fit in 0..255
 */
 //DIGITAL OUTPUTS - we can switch on or off outputs
 
-#ifdef ANALOG_KEYS
-int kKeyNumAnalog = 2; //number of analog inputs
-#else
-int kKeyNumAnalog = 0; //number of analog inputs
-#endif
+const int kKeyNumAnalog = 0; //number of analog inputs
+const int kKeyNumDigital = 7;
+const int kOutEEGTriggerNum = 16;
+const int kOutNum = 7;
 
 
-#ifdef  IS_MEGA
-  // WARNING: the UNO does not support a USB keyboard and has a VERY slow serial communication (e.g. 1 channel at 100 Hz), you will also want to added pauses when initiating communication (see notes in ScopeMath_Arduino for details). To proceed comment this line
-  #define BAUD_RATE 115200 //The UNO is not as capabe as other devices
-  const int kADCbits = 10; //The Uno supports 10bit (0..1023) analog input
-  const int kFirstDigitalInPin = 2; //for example if digital inputs are pins 2..9 then '1', since pins0/1 are UART, this is typically 2
-  const int kOutLEDpin = 13; //location of in-built light emitting diode - 11 for Teensy, 13 for Arduino
-  const int kOutNum = 7;
-  int kOutPin[kOutNum+1] = {0, 10,11,12,14,15,16,17};
-  const int kOutEEGTriggerNum = 16;
-  int kOutEEGTriggerPin[kOutEEGTriggerNum+1] = {0, 22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37};
-  const int kOscMaxChannels = 6; //LEONARDO has 6 Analog inputs A0..A5, must be 1..15
-#endif
+#define BAUD_RATE 115200 //The UNO is not as capabe as other devices
+const int kADCbits = 10; //The Uno supports 10bit (0..1023) analog input
 
-#ifndef NO_EEPROM
- #include <EEPROM.h> //used to store key mappings
-#endif
+const int kOutLEDpin = 13; //location of in-built light emitting diode - 11 for Teensy, 13 for Arduino
+int kDigitalInPin[kKeyNumDigital + 1] = {0,3,4,5,6,7,8,9};
+int kOutPin[kOutNum+1] = {0, 10,11,12,14,15,16,17};
+int kOutEEGTriggerPin[kOutEEGTriggerNum+1] = {0, 22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37};
 
 
 const int kADCbitShift = 16-kADCbits; //we report data with 16 bits precision, so we need to up-scale 10 and 12 bit ADC
 
 //MODE VALUES - device can operate as a keyboard, a microsecond timer, or an oscilloscope
-const int  kModeKeyboard = 0;
 const int kModeuSec = 1;
-const int kModeOsc =  2;
 int gMode = kModeuSec;
 const int kDefaultDebounceMillis = 100;
-boolean gInvertTriggers = false;
 boolean gCoupleDownUpDebounce = true;
 int gDebounceMillis = 100;
 //VALUES FOR KEYBOARD MODE
-const int kKeyNumDigital = 8;
-int kKeyNum = kKeyNumDigital + kKeyNumAnalog; //digital inputs, e.g. if you have 8 buttons and 2 analog inputs, set to 10
+const int kKeyNum = kKeyNumDigital + kKeyNumAnalog; //digital inputs, e.g. if you have 8 buttons and 2 analog inputs, set to 10
 const int kMaxKeyNum = kKeyNumDigital + 2; //digital inputs, e.g. if you have 8 buttons and 2 analog inputs, set to 10
-char gKeyDown[kMaxKeyNum+1] = {kDefaultDebounceMillis, '1','2','3','4','5','6','7','8','a','b'}; //key mapping when button depressed
-char gKeyUp[kMaxKeyNum+1] = {2, 0,0,0,0,0,0,0,0,0,0}; //key mapping when button released
-byte gKeyTrigger[kMaxKeyNum+1] = {0, 0,0,0,0,0,0,0,0,0,0}; //key binding - will a digital output line map the key status?
-int gKeyOldDownStatus[kMaxKeyNum+1] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //keys previously depressed
-int gKeyNewDownStatus[kMaxKeyNum+1] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //keys currently depressed
-int gKeyOldTriggerStatus[kMaxKeyNum+1] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //keys currently depressed
+char gKeyDown[kMaxKeyNum+1] = {kDefaultDebounceMillis, '1','2','3','4','5','6','7','a','b'}; //key mapping when button depressed
+char gKeyUp[kMaxKeyNum+1] = {2,0,0,0,0, 0,0,0,0,0}; //key mapping when button released
+int gKeyOldDownStatus[kMaxKeyNum+1] = {0, 0, 0, 0, 0,  0, 0, 0, 0, 0}; //keys previously depressed
+int gKeyNewDownStatus[kMaxKeyNum+1] = {0, 0, 0, 0, 0,  0, 0, 0, 0, 0}; //keys currently depressed
+
 byte gCurrentDigitalOutput = 0; //0..127 reflecting current status of digital output pins
 char gKeyChangeChar;
 unsigned long gKeyChangeTime = 0;
@@ -161,26 +123,12 @@ unsigned long gKeyTimeLastTrigger[kMaxKeyNum+1] = {};
 unsigned long gKeyTimeLastUp[kMaxKeyNum+1] = {};
 unsigned long gKeyTimeLastDown[kMaxKeyNum+1] = {};
 
-//values stored in EEPROM
-//Address : Value
-// 0: repeatRateMS
-// 1..10: key mapping for down-stroke of buttons 1..10
-// 101..110: key mapping for up-stroke of buttons 1..10
-// 201..210: key binding for buttons 1..10
-
-//MODE: KEYBOARD (DEFAULT)
-// 8 DIGITAL INPUTS
-//  pins 2-9 are inputs. When pulled to ground a button press is generated
-// 2 THRESHOLED ANALOG INPUTS
-//  when votge of A0(A1) exceeds A2(A3) a button press is generated and light on A4(A5) is turned on
-// 3 DIGITAL OUTPUT (7 for Teensy)
-//   Serial communication can send a byte 0..127 which controls output of pins 10..12, xx..xx
 
 boolean readKeys() { //reads which keys are down, returns true if keys have changed
   boolean statusChange = false;
   //read digital buttons
   for (int i = 1; i <= kKeyNumDigital; i++) {
-      gKeyNewDownStatus[i] = !digitalRead(i+kFirstDigitalInPin-1);
+      gKeyNewDownStatus[i] = !digitalRead(kDigitalInPin[i]);
       if (gKeyNewDownStatus[i] != gKeyOldDownStatus[i]) statusChange = true;
   }
   if (kKeyNumAnalog < 1) return statusChange;
@@ -213,79 +161,11 @@ void updateDebounceSettings() {
   if (gKeyDown[0]  > 254) gKeyDown[0] = kDefaultDebounceMillis;
   gDebounceMillis = gKeyDown[0];
   //set flags based on otherwise unused gKeyUp[0]
-  if (gKeyUp[0]  & 1)
-    gInvertTriggers = true;
-  else
-    gInvertTriggers = false;
   if (gKeyUp[0]  & 2)
     gCoupleDownUpDebounce = true;
   else
     gCoupleDownUpDebounce = false;
 }
-
-void sendTrigger(byte Index, int Val) {
-  if ((Index < 1) || (Index > kOutNum)) return;
-  if (gInvertTriggers) {
-    if (Val == 0)
-      Val = HIGH;
-    else
-      Val = LOW;
-  } else {
-    if (Val == 0)
-      Val = LOW;
-    else
-      Val = HIGH;
-  }
-  digitalWrite(kOutPin[Index],Val);
-  //digitalWrite(kOutPin[Index],Val);
-} //sendTrigger()
-
-void writeROM() { //save settings to ROM
-  #ifdef NO_EEPROM
-    for (int i = 0; i <= kMaxKeyNum; i++) {
-       nv_ram[i] = gKeyDown[i];
-       nv_ram[i+100] = gKeyUp[i];
-       nv_ram[i+200] = gKeyTrigger[i];
-    }
-    nv_save();
-  #else
-    //EEPROM.write(0, gKeyDown[0]);//repeatRateMS
-    for (int i = 0; i <= kMaxKeyNum; i++) {
-        EEPROM.write(i, gKeyDown[i]);
-        EEPROM.write(i+100, gKeyUp[i]);
-        EEPROM.write(i+200, gKeyTrigger[i]);
-    }
-  #endif //only if device has EEPROM
-} //writeROM()
-
-void readROM() {
-  #ifdef NO_EEPROM
-    nv_load();
-    if ( (nv_ram[0] == 255) || (nv_ram[0] == 0)) { //initialize EEPROM
-      writeROM();
-    } else {
-      //gKeyDown[0] = EEPROM.read(0);//repeatRateMS
-      for (int i = 0; i <= kMaxKeyNum; i++) {
-          gKeyDown[i] =nv_ram[i];
-          gKeyUp[i] = nv_ram[i+100];
-          gKeyTrigger[i] = nv_ram[i+200];
-      }
-    }
-  #else //#ifndef NO_EEPROM
-    if ( (EEPROM.read(0) == 255) || (EEPROM.read(0) == 0)) { //initialize EEPROM
-      writeROM();
-    } else {
-      //gKeyDown[0] = EEPROM.read(0);//repeatRateMS
-      for (int i = 0; i <= kMaxKeyNum; i++) {
-          gKeyDown[i] = EEPROM.read(i);
-          gKeyUp[i] = EEPROM.read(i+100);
-          gKeyTrigger[i] = EEPROM.read(i+200);
-      }
-    }
-    updateDebounceSettings();
-  #endif //only if device has EEPROM
-} //readROM()
-
 
 void sendUSec() {
   const int numSerialBytes = 8;
@@ -293,11 +173,13 @@ void sendUSec() {
   byte serialBytes[numSerialBytes];
   int keyBits = 0;
   unsigned long uSec = micros();
+  /* that proofed to mess it up
   for (int i = 1; i <= kKeyNum; i++)
     if (gKeyNewDownStatus[i] > 0) {
-        keyBits = keyBits + (1 << (i-1));
+        keyBits = keyBits + (1 << (i-1)); // 2 ^ (i-1)
         if (i <= 2) digitalWrite(kOutEEGTriggerPin[i],HIGH); // instant setting of EEG Triggers for response key
     }
+  */
   keyBits = keyBits + (gCurrentDigitalOutput << kKeyNum);
   serialBytes[0] = kuSecSignature;//indentify this reponse
   serialBytes[1] = ( keyBits >> 8) & 0xff; //keys 9..16 as bits 8..15
@@ -313,12 +195,6 @@ void sendUSec() {
   serialBytes[numSerialBytes-1] = checkSum;
   Serial.write(serialBytes, numSerialBytes);
 } //sendUSec()
-
-void timer_stop() {
-  cli();  // disable interrupts while messing with their settings, aka noInterrupts();
-  TIMSK1 = 0; //disable timer1
-  sei(); // turn interrupts back on, aka interrupts();
-}//timer_stop
 
 
 void sendGetResponse(byte b2, byte b3, byte b4) { //report key press mapping for pin bitIndex
@@ -355,48 +231,16 @@ boolean isNewCommand(byte Val) {
         if (gCmdPrevBytes[0] == kCmd1Get) {
          //sendMode;
          byte mode34 = kCmd34ModeuSec;
-         if (gMode == kModeKeyboard) mode34 = kCmd34ModeKey;
          sendGetResponse(kCmd2Mode,mode34,mode34);
          break;
         }
-        timer_stop();
-        if ((gCmdPrevBytes[2] == kCmd34ModeKey) && (gCmdPrevBytes[3] == kCmd34ModeKey))  {
-          gMode = kModeKeyboard; //switch to microsecond mode
-        }
-        else { //default  ((gCmdPrevBytes[2] == kCmd34ModeKey) && (gCmdPrevBytes[3] == kCmd34ModeKey)) {
-          gMode = kModeuSec; //switch to keyboard mode
-          digitalWrite(kOutLEDpin,HIGH); //ensure power light is on
+        gMode = kModeuSec; //switch to keyboard mode
+        break;
+   case kCmd2SetTimeStamp:
+        if (gCmdPrevBytes[0] == kCmd1Set) {
+            sendUSec();
         }
         break;
-   case kCmd2KeyDown: //keyDown
-        if ((gCmdPrevBytes[2] < 0) || (gCmdPrevBytes[2] > kMaxKeyNum)) return possibleCmd;
-        if (gCmdPrevBytes[0] == kCmd1Get) {
-          sendGetResponse(kCmd2KeyDown,gCmdPrevBytes[2],gKeyDown[gCmdPrevBytes[2]]);
-          break;
-        }
-        gKeyDown[gCmdPrevBytes[2]] = gCmdPrevBytes[3];
-        updateDebounceSettings();
-        break;
-   case kCmd2KeyUp: //key release mapping
-        if ((gCmdPrevBytes[2] < 0) || (gCmdPrevBytes[2] > kMaxKeyNum)) return possibleCmd;
-        if (gCmdPrevBytes[0] == kCmd1Get) {
-          sendGetResponse(kCmd2KeyUp,gCmdPrevBytes[2],gKeyUp[gCmdPrevBytes[2]]);
-         break;
-        }
-        gKeyUp[gCmdPrevBytes[2]] = gCmdPrevBytes[3];
-        updateDebounceSettings();
-        break;
-   case kCmd2KeyTrigger: //key binding
-        if ((gCmdPrevBytes[2] < 0) || (gCmdPrevBytes[2] > kMaxKeyNum)) return possibleCmd;
-        if (gCmdPrevBytes[0] == kCmd1Get) {
-          sendGetResponse(kCmd2KeyTrigger,gCmdPrevBytes[2],gKeyTrigger[gCmdPrevBytes[2]]);
-          //sendGetResponse(kCmd2KeyUp,1,0);
-          //666 sendGetResponse(kCmd2KeyUp,gCmdPrevBytes[2],gKeyUp[gCmdPrevBytes[2]]);
-          break;
-        }
-        gKeyTrigger[gCmdPrevBytes[2]] = gCmdPrevBytes[3];
-        break;
-
    case kCmd2SoftwareVersion: //report version of software
         if (gCmdPrevBytes[0] == kCmd1Get) {
           sendGetResponse(kCmd2SoftwareVersion,(kSoftwareVersion >> 8) & 0xff,kSoftwareVersion & 0xff);
@@ -450,7 +294,6 @@ void writePins(byte Val) {
 
 void setup()
 {
-  readROM();
   //set KEY values - inputs
   unsigned long timeNow = millis();
   for (int i = 0; i <= kMaxKeyNum; i++) {
@@ -458,15 +301,13 @@ void setup()
     gKeyTimeLastDown[i] = timeNow;
     gKeyTimeLastTrigger[i] = timeNow;
   }
-  for (int i = kFirstDigitalInPin; i < (kFirstDigitalInPin+kKeyNumDigital); i++) {
-    pinMode(i, INPUT);           // set pin to input
-    digitalWrite(i, HIGH);       // turn on pullup resistors
+    for (int i = 1; i <= (kKeyNumDigital); i++) {
+    pinMode(kDigitalInPin[i], INPUT);           // set pin to input
+    digitalWrite(kDigitalInPin[i], HIGH);       // turn on pullup resistors
   }
   readKeys(); //scan inputs
   for (int i = 1; i <= kMaxKeyNum; i++) {
     gKeyOldDownStatus[i] = gKeyNewDownStatus[i];
-    gKeyOldTriggerStatus[i] = gKeyNewDownStatus[i];
-    sendTrigger(gKeyTrigger[i],gKeyNewDownStatus[i]);
   }
   //Set OUT values - digital outputs
   for (int i = 1; i <= (kOutNum); i++)  //set analog status lights as outputs1
@@ -477,29 +318,19 @@ void setup()
     }
   }
   pinMode(kOutLEDpin, OUTPUT); //set light as an output
-  for (int i = 1; i < kOutEEGTriggerNum + 1; i++)
+  for (int i = 1; i <= kOutEEGTriggerNum; i++)
     pinMode(kOutEEGTriggerPin[i], OUTPUT);
-  digitalWrite(kOutLEDpin, HIGH);
   Serial.begin(BAUD_RATE);
 } //setup()
 
 void loop() {
  unsigned long timeNow = millis();
- if ((gMode == kModeKeyboard) || (gMode == kModeuSec)) {
+ if (gMode == kModeuSec) {
    //READ digital inputs
    boolean newStatusMapped = false;
    boolean newStatus = false;
    readKeys();
    for (int i = 1; i <= kKeyNum; i++) {
-     if ((gKeyTrigger[i] != 0) && (gKeyNewDownStatus[i] != gKeyOldTriggerStatus[i])  ) {
-        if ( (timeNow >  (gKeyTimeLastTrigger[i]+gDebounceMillis))  || (timeNow < gKeyTimeLastTrigger[i]) )  {
-          gKeyTimeLastTrigger[i] = timeNow;
-          sendTrigger(gKeyTrigger[i],gKeyNewDownStatus[i]);
-          gKeyOldTriggerStatus[i] = gKeyNewDownStatus[i];
-        } //debounce time elapsed on trigger
-     } //change in trigger
-
-
      if (gKeyNewDownStatus[i] != gKeyOldDownStatus[i]) {
        if (gKeyNewDownStatus[i] > 0)  { //downPress
          if ( (timeNow >  (gKeyTimeLastDown[i]+ gDebounceMillis))  || (timeNow < gKeyTimeLastDown[i]) )  {
@@ -512,7 +343,7 @@ void loop() {
        }//down press
        if (gKeyNewDownStatus[i] == 0)  { //upPress
         if ( (timeNow >( gKeyTimeLastUp[i]+gDebounceMillis))  || (timeNow < gKeyTimeLastUp[i]) )  { //
-          newStatus = true;
+          //newStatus = true;
           if  (gKeyUp[i] > 0) newStatusMapped = true; //status change of mapped key
           gKeyTimeLastUp[i] = timeNow; //
           if (gCoupleDownUpDebounce) gKeyTimeLastDown[i] = timeNow; //
@@ -521,24 +352,24 @@ void loop() {
        } //up press
      } //if key change
    } //for each key
-     if (gKeyChangeTime != 0) {
-       if ( (timeNow >( gKeyChangeTime+gDebounceMillis))  || (timeNow < gKeyChangeTime) )  {
-            //...
-       } //debounce time elapsed
-     } //key currently pressed
 
-   if ((gMode == kModeuSec) && (newStatus))  sendUSec();
+   if ((gMode == kModeuSec) && (newStatus)) {
+        sendUSec();
+   }
 
+#ifdef BLINK
    //BLINK power light in uSec mode
   if (gMode == kModeuSec) {
     int modulo = timeNow % 1000;
     if ((modulo == 1) || (modulo == 201) ) digitalWrite(kOutLEDpin, HIGH);
     if ((modulo == 100) || (modulo == 300)) digitalWrite(kOutLEDpin, LOW);
   } //ModeUSec
- }
+#endif // BLINK
+  }
   //Write digtal outputs - check for new commands
 
    if (Serial.available()) { //read data from primary serial port
+                             // reads only one byte
         while (Serial.available()) {
             byte val = Serial.read();
             if (!isNewCommand(val)) writePins(val);
