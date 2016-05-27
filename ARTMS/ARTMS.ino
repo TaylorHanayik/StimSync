@@ -173,13 +173,11 @@ void sendUSec() {
   byte serialBytes[numSerialBytes];
   int keyBits = 0;
   unsigned long uSec = micros();
-  /* that proofed to mess it up
   for (int i = 1; i <= kKeyNum; i++)
     if (gKeyNewDownStatus[i] > 0) {
         keyBits = keyBits + (1 << (i-1)); // 2 ^ (i-1)
-        if (i <= 2) digitalWrite(kOutEEGTriggerPin[i],HIGH); // instant setting of EEG Triggers for response key
+        //if (i <= 2) digitalWrite(kOutEEGTriggerPin[i],HIGH); // instant setting of EEG Triggers for response key
     }
-  */
   keyBits = keyBits + (gCurrentDigitalOutput << kKeyNum);
   serialBytes[0] = kuSecSignature;//indentify this reponse
   serialBytes[1] = ( keyBits >> 8) & 0xff; //keys 9..16 as bits 8..15
